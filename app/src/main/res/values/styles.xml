@@ -54,4 +54,13 @@
         <item name="android:layout_marginTop">7dp</item>
         <item name="android:contentDescription">@string/image_of_actor_or_actress</item>
     </style>
+
+    <style name="ImageViewActorLandStyle" parent="ImageViewActorStyle">
+        <item name="android:layout_width">@dimen/actor_icon_land_size</item>
+        <item name="android:layout_height">@dimen/actor_icon_land_size</item>
+    </style>
+
+    <style name="TextImageLandStyle" parent="TextImageStyle">
+        <item name="android:layout_width">@dimen/actor_icon_land_size</item>
+    </style>
 </resources>
