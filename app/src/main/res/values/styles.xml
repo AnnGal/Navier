@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextHeaderStyle" parent="TextStyle">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_text_header</item>
+    </style>
+
+    <style name="TextMainHeaderStyle" parent="TextHeaderStyle">
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="TextImageStyle" parent="TextStyle">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:textColor">@color/color_text_image</item>
+        <item name="android:layout_width">@dimen/actor_icon_size</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">start</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="TextRegularStyle" parent="TextStyle">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/color_white_transparent75</item>
+    </style>
+
+    <style name="ImageRatingStarStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="ImageViewActorStyle">
+        <item name="android:layout_width">@dimen/actor_icon_size</item>
+        <item name="android:layout_height">@dimen/actor_icon_size</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:contentDescription">@string/image_of_actor_or_actress</item>
+    </style>
+</resources>
