@@ -35,16 +35,8 @@
     <style name="TextRegularStyle" parent="TextStyle">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:paddingEnd">16dp</item>
         <item name="android:textColor">@color/color_white_transparent75</item>
-    </style>
-
-    <style name="ImageRatingStarStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginEnd">8dp</item>
-        <item name="android:layout_marginStart">4dp</item>
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
     </style>
 
     <style name="ImageViewActorStyle">
@@ -62,5 +54,10 @@
 
     <style name="TextImageLandStyle" parent="TextImageStyle">
         <item name="android:layout_width">@dimen/actor_icon_land_size</item>
+    </style>
+
+    <style name="RatingBarStyle" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/color_text_disabled</item>
+        <item name="colorControlActivated">@color/color_accent</item>
     </style>
 </resources>
