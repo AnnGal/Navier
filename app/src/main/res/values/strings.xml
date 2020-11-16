@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Navier</string>
     <string name="hello_android_academy">Hello Android Academy!</string>
+    <string name="back_label">Back</string>
+    <string name="movie_genres">Action, Adventure, Fantasy</string>
+    <string name="movie_reviews">125 Reviews</string>
+    <string name="image_of_main_poster">image of main poster</string>
+    <string name="storyline">Storyline</string>
+    <string name="movie_description">After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.</string>
+    <string name="movie_title">Avengers: \nEnd Game</string>
+    <string name="cast">Cast</string>
+    <string name="image_of_actor_or_actress">image of actor or actress</string>
+    <string name="robert_downey_jr">Robert Downey Jr.</string>
+    <string name="age_rating_default">13+</string>
+    <string name="chris_evans">Chris Evans</string>
+    <string name="mark_ruffalo">Mark Ruffalo</string>
+    <string name="chris_hemsworth">Chris Hemsworth</string>
+    <string name="image_rating_star">image rating star</string>
 </resources>

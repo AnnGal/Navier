@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="actor_icon_size">80dp</dimen>
+    <dimen name="actor_icon_land_size">160dp</dimen>
+    <dimen name="layout_gap">16dp</dimen>
+    <dimen name="view_big_gap">16dp</dimen>
+    <dimen name="view_medium_gap">8dp</dimen>
+    <dimen name="text_under_image_view_gap">6dp</dimen>
+</resources>
