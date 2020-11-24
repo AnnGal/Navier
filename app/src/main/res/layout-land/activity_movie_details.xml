@@ -34,7 +34,7 @@
         </FrameLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/toolbar"
             style="@style/ToolbarButtonTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

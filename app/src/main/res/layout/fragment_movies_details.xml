@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,8 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingBottom="@dimen/view_big_gap"
-        tools:context=".MovieDetailsActivity">
+        android:paddingBottom="@dimen/view_big_gap">
 
         <FrameLayout
             android:id="@+id/frameTitleImage"
@@ -99,6 +97,7 @@
             android:numStars="5"
             android:rating="4"
             android:theme="@style/RatingBarStyle"
+            android:isIndicator="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvGenres" />
 

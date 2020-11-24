@@ -8,6 +8,7 @@
     <string name="storyline">Storyline</string>
     <string name="movie_description">After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.</string>
     <string name="movie_title">Avengers: \nEnd Game</string>
+    <string name="movie_title_card">Avengers: End Game</string>
     <string name="cast">Cast</string>
     <string name="image_of_actor_or_actress">image of actor or actress</string>
     <string name="robert_downey_jr">Robert Downey Jr.</string>
@@ -16,4 +17,9 @@
     <string name="mark_ruffalo">Mark Ruffalo</string>
     <string name="chris_hemsworth">Chris Hemsworth</string>
     <string name="image_rating_star">image rating star</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movies_list">Movies list</string>
+    <string name="movie_genres_card">Action, Adventure, Drama</string>
+    <string name="movie_duration">137 min</string>
 </resources>
