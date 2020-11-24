@@ -103,7 +103,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvGenres" />
 
         <TextView
-            android:id="@+id/tvReviewsCount"
+            android:id="@+id/tvReviews"
             style="@style/ReviewTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
             android:layout_marginTop="@dimen/view_big_gap"
             android:text="@string/storyline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvReviewsCount" />
+            app:layout_constraintTop_toBottomOf="@+id/tvReviews" />
 
         <TextView
             android:id="@+id/tvStorylineText"

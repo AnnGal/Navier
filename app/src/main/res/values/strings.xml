@@ -22,4 +22,5 @@
     <string name="movies_list">Movies list</string>
     <string name="movie_genres_card">Action, Adventure, Drama</string>
     <string name="movie_duration">137 min</string>
+    <string name="image_like">image of like icon</string>
 </resources>
