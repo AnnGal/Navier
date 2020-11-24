@@ -28,7 +28,7 @@
         android:layout_marginTop="@dimen/view_big_gap"
         android:padding="8dp"
         app:cardCornerRadius="8dp"
-        app:cardElevation="1dp"
+        app:cardElevation="3dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/movie_title"
+                android:text="@string/movie_title_card"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -93,9 +93,9 @@
                 android:layout_width="@dimen/size_icon"
                 android:layout_height="@dimen/size_icon"
                 android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAgeRating"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="@+id/tvAgeRating"
                 app:srcCompat="@drawable/ic_like" />
 
             <TextView
@@ -103,13 +103,12 @@
                 style="@style/ReviewTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:paddingStart="@dimen/view_medium_gap"
+                android:layout_marginBottom="4dp"
                 android:text="@string/movie_reviews"
+                android:textSize="8sp"
                 app:layout_constraintBottom_toBottomOf="@+id/frameTitleImage"
                 app:layout_constraintStart_toEndOf="@+id/ratingBarCard"
                 tools:ignore="RtlSymmetry"
-                android:textSize="8sp"
                 tools:text="125 Reviews" />
 
             <TextView
@@ -118,7 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="4dp"
                 android:text="@string/movie_genres_card"
                 android:textColor="@color/accent"
                 android:textSize="8sp"
@@ -130,15 +129,16 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:isIndicator="true"
+                android:theme="@style/RatingBarStyle"
+                android:scaleX=".8"
+                android:scaleY=".8"
                 android:numStars="5"
                 android:rating="4"
-                android:theme="@style/RatingBarStyle"
-                android:isIndicator="true"
-
                 app:layout_constraintBottom_toBottomOf="@+id/tvReviewsCount2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvReviewsCount2" />
+
 
             <TextView
                 android:id="@+id/tvAgeRating"
