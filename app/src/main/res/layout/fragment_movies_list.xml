@@ -42,10 +42,15 @@
             app:strokeColor="@color/cardview_dark_background"
             app:strokeWidth="1dp">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient_radial_view_card" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/background">
+                android:background="@color/view_card_background_end">
 
                 <FrameLayout
                     android:id="@+id/frameTitleImage"

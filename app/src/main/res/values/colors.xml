@@ -15,4 +15,6 @@
     <color name="disabled_primary">#6D6D80</color>
     <color name="text_under_image">#D8D8D8</color>
     <color name="view_card_border">#80000000</color>
+    <color name="view_card_background_end">#8C222232</color>
+    <color name="view_card_background_start">#FD404056</color>
 </resources>
