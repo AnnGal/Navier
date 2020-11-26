@@ -85,8 +85,8 @@
 
     <style name="MyRatingBar3" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/rating_bar_small_stars</item>
-        <item name="android:minHeight">8dip</item>
-        <item name="android:maxHeight">8dip</item>
+        <item name="android:minHeight">8dp</item>
+        <item name="android:maxHeight">8dp</item>
     </style>
 
 
