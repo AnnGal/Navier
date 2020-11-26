@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:background="@color/background">
 
         <Button
@@ -42,36 +42,30 @@
             app:strokeColor="@color/cardview_dark_background"
             app:strokeWidth="1dp">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/gradient_radial_view_card" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/view_card_background_end">
 
-                <FrameLayout
-                    android:id="@+id/frameTitleImage"
+                <ImageView
+                    android:id="@+id/imgTitlePoster"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/movie_card_image_height"
+                    android:contentDescription="@string/image_of_main_poster"
+                    android:scaleType="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/img_avengers" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:contentDescription="@string/image_of_main_poster"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/img_avengers" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/gradient_view_card" />
-                </FrameLayout>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/gradient_view_card"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgTitlePoster"
+                    app:layout_constraintEnd_toEndOf="@+id/imgTitlePoster"
+                    app:layout_constraintStart_toStartOf="@+id/imgTitlePoster"
+                    app:layout_constraintTop_toTopOf="@+id/imgTitlePoster" />
 
                 <TextView
                     android:id="@+id/tvAgeRating"
@@ -125,7 +119,7 @@
                     android:scaleX=".8"
                     android:scaleY=".8"
                     android:theme="@style/RatingBarStyle"
-                    app:layout_constraintBottom_toBottomOf="@+id/frameTitleImage"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgTitlePoster"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
@@ -154,7 +148,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/frameTitleImage"
+                    app:layout_constraintTop_toBottomOf="@+id/imgTitlePoster"
                     tools:text="Avengers: End Game" />
 
                 <TextView

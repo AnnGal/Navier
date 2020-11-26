@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity(), ChangeFragment {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
-                setReorderingAllowed(true)
                 add<FragmentMoviesList>(R.id.fragment_place)
             }
         }
@@ -23,8 +22,7 @@ class MainActivity : AppCompatActivity(), ChangeFragment {
 
     override fun toMovieDetail() {
         supportFragmentManager.commit {
-            replace<FragmentMoviesDetails>(R.id.fragment_place)
-            setReorderingAllowed(true)
+            add<FragmentMoviesDetails>(R.id.fragment_place)
             addToBackStack(null)
         }
     }

@@ -9,8 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 
-private const val ARG_MOVIE_ID = "movie_id"
-
 class FragmentMoviesDetails : Fragment() {
 
     private var listener: ChangeFragment? = null
@@ -31,7 +29,7 @@ class FragmentMoviesDetails : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         // catch listener
-        listener = context as ChangeFragment
+        listener = context as? ChangeFragment
     }
 
     override fun onDetach() {
@@ -40,11 +38,13 @@ class FragmentMoviesDetails : Fragment() {
     }
 
     companion object {
+        private const val ARG_MOVIE_ID = "movie_id"
+
         @JvmStatic
-        fun newInstance(param1: String) =
+        fun newInstance(movieId: String) =
                 FragmentMoviesDetails().apply {
                     arguments = Bundle().apply {
-                        putString(ARG_MOVIE_ID, param1)
+                        putString(ARG_MOVIE_ID, movieId)
                     }
                 }
     }

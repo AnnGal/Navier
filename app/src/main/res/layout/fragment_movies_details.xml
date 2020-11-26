@@ -11,26 +11,25 @@
         android:layout_height="0dp"
         android:paddingBottom="@dimen/view_big_gap">
 
-        <FrameLayout
-            android:id="@+id/frameTitleImage"
+        <ImageView
+            android:id="@+id/imgTitlePoster"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/image_of_main_poster"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/img_avengers_background" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/image_of_main_poster"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/img_avengers_background" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/gradient" />
-        </FrameLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/gradient"
+            app:layout_constraintBottom_toBottomOf="@+id/imgTitlePoster"
+            app:layout_constraintEnd_toEndOf="@+id/imgTitlePoster"
+            app:layout_constraintStart_toStartOf="@+id/imgTitlePoster"
+            app:layout_constraintTop_toTopOf="@+id/imgTitlePoster" />
 
         <Button
             android:id="@+id/toolbar"
@@ -64,9 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/layout_gap"
             android:text="@string/movie_title"
-            app:layout_constraintBottom_toBottomOf="@+id/frameTitleImage"
+            app:layout_constraintBottom_toBottomOf="@+id/imgTitlePoster"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frameTitleImage"
+            app:layout_constraintTop_toBottomOf="@+id/imgTitlePoster"
             tools:text="Avengers: \nEnd Game" />
 
         <!--text shadow-->
@@ -94,10 +93,10 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/layout_gap"
             android:layout_marginTop="8dp"
+            android:isIndicator="true"
             android:numStars="5"
             android:rating="4"
             android:theme="@style/RatingBarStyle"
-            android:isIndicator="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvGenres" />
 
