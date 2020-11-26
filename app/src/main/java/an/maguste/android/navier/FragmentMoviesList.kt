@@ -24,7 +24,7 @@ class FragmentMoviesList : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         // catch listener
-        listener = context as ChangeFragment
+        listener = context as? ChangeFragment
     }
 
     override fun onDetach() {
