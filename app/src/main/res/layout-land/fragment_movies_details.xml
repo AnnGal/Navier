@@ -8,33 +8,31 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/view_big_gap"
-        tools:context=".MovieDetailsActivity">
+        android:layout_height="0dp"
+        android:paddingBottom="@dimen/view_big_gap">
 
-        <FrameLayout
-            android:id="@+id/frameTitleImage"
+        <ImageView
+            android:id="@+id/imgTitlePoster"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/image_of_main_poster"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/img_avengers_background" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/image_of_main_poster"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/img_avengers_background" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/gradient" />
-        </FrameLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/gradient"
+            app:layout_constraintBottom_toBottomOf="@+id/imgTitlePoster"
+            app:layout_constraintEnd_toEndOf="@+id/imgTitlePoster"
+            app:layout_constraintStart_toStartOf="@+id/imgTitlePoster"
+            app:layout_constraintTop_toTopOf="@+id/imgTitlePoster" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/toolbar"
             style="@style/ToolbarButtonTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,6 +56,7 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:text="13+" />
 
+
         <TextView
             android:id="@+id/tvTitle"
             style="@style/TextMainHeaderStyle"
@@ -65,9 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/layout_gap"
             android:text="@string/movie_title"
-            app:layout_constraintBottom_toBottomOf="@+id/frameTitleImage"
+            app:layout_constraintBottom_toBottomOf="@+id/imgTitlePoster"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frameTitleImage"
+            app:layout_constraintTop_toBottomOf="@+id/imgTitlePoster"
             tools:text="Avengers: \nEnd Game" />
 
         <TextView
@@ -89,6 +88,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/layout_gap"
             android:layout_marginTop="8dp"
+            android:isIndicator="true"
             android:numStars="5"
             android:rating="4"
             android:theme="@style/RatingBarStyle"
@@ -96,7 +96,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvGenres" />
 
         <TextView
-            android:id="@+id/tvReviewsCount"
+            android:id="@+id/tvReviews"
             style="@style/ReviewTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
             android:layout_marginTop="@dimen/view_big_gap"
             android:text="@string/storyline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvReviewsCount" />
+            app:layout_constraintTop_toBottomOf="@+id/tvReviews" />
 
         <TextView
             android:id="@+id/tvStorylineText"
@@ -148,7 +148,7 @@
 
         <ImageView
             android:id="@+id/imgDowney"
-            style="@style/ImageViewActorStyle"
+            style="@style/ImageViewActorLandStyle"
             android:layout_marginStart="@dimen/layout_gap"
             android:contentDescription="@string/image_of_actor_or_actress"
             app:layout_constraintEnd_toStartOf="@+id/imgEvans"
@@ -160,8 +160,8 @@
 
         <TextView
             android:id="@+id/tvDowney"
-            style="@style/TextImageStyle"
-            android:layout_width="@dimen/actor_icon_size"
+            style="@style/TextImageLandStyle"
+            android:layout_width="@dimen/actor_icon_land_size"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_under_image_view_gap"
             android:gravity="start"
@@ -173,7 +173,7 @@
 
         <ImageView
             android:id="@+id/imgEvans"
-            style="@style/ImageViewActorStyle"
+            style="@style/ImageViewActorLandStyle"
             android:contentDescription="@string/image_of_actor_or_actress"
             app:layout_constraintEnd_toStartOf="@+id/imgRuffalo"
             app:layout_constraintHorizontal_bias="0.5"
@@ -183,8 +183,8 @@
 
         <TextView
             android:id="@+id/tvEvans"
-            style="@style/TextImageStyle"
-            android:layout_width="@dimen/actor_icon_size"
+            style="@style/TextImageLandStyle"
+            android:layout_width="@dimen/actor_icon_land_size"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_under_image_view_gap"
             android:gravity="start"
@@ -196,7 +196,7 @@
 
         <ImageView
             android:id="@+id/imgRuffalo"
-            style="@style/ImageViewActorStyle"
+            style="@style/ImageViewActorLandStyle"
             android:contentDescription="@string/image_of_actor_or_actress"
             app:layout_constraintEnd_toStartOf="@+id/imgHemsworth"
             app:layout_constraintHorizontal_bias="0.5"
@@ -206,8 +206,8 @@
 
         <TextView
             android:id="@+id/tvRuffalo"
-            style="@style/TextImageStyle"
-            android:layout_width="@dimen/actor_icon_size"
+            style="@style/TextImageLandStyle"
+            android:layout_width="@dimen/actor_icon_land_size"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_under_image_view_gap"
             android:gravity="start"
@@ -219,7 +219,7 @@
 
         <ImageView
             android:id="@+id/imgHemsworth"
-            style="@style/ImageViewActorStyle"
+            style="@style/ImageViewActorLandStyle"
             android:layout_marginEnd="@dimen/layout_gap"
             android:contentDescription="@string/image_of_actor_or_actress"
             app:layout_constraintEnd_toEndOf="parent"
@@ -230,8 +230,8 @@
 
         <TextView
             android:id="@+id/tvHemsworth"
-            style="@style/TextImageStyle"
-            android:layout_width="@dimen/actor_icon_size"
+            style="@style/TextImageLandStyle"
+            android:layout_width="@dimen/actor_icon_land_size"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_under_image_view_gap"
             android:gravity="start"
@@ -240,8 +240,6 @@
             app:layout_constraintEnd_toEndOf="@+id/imgHemsworth"
             app:layout_constraintStart_toStartOf="@+id/imgHemsworth"
             app:layout_constraintTop_toBottomOf="@+id/imgHemsworth" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
