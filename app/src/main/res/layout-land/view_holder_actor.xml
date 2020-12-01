@@ -16,13 +16,13 @@
 
         <ImageView
             android:id="@+id/ivActorsImage"
-            style="@style/ImageViewActorStyle"
+            style="@style/ImageViewActorLandStyle"
             android:contentDescription="@string/image_of_actor_or_actress"
             tools:src="@tools:sample/avatars"/>
 
         <TextView
             android:id="@+id/tvActorFullName"
-            style="@style/TextImageStyle"
+            style="@style/TextImageLandStyle"
             android:layout_width="@dimen/actor_icon_size"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_under_image_view_gap"

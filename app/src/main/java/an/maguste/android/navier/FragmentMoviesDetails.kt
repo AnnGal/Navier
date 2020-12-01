@@ -1,5 +1,7 @@
 package an.maguste.android.navier
 
+import an.maguste.android.navier.model.Actor
+import an.maguste.android.navier.model.ActorAdapter
 import an.maguste.android.navier.model.ChangeFragment
 import an.maguste.android.navier.model.MovieAdapter
 import android.content.Context
@@ -28,11 +30,17 @@ class FragmentMoviesDetails : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recycler = view.findViewById(R.id.recyclerView)
-        //TODO recycler?.adapter = MovieAdapter()
+        recycler?.adapter = ActorAdapter()
 
         view.findViewById<Button>(R.id.toolbar).setOnClickListener {
             listener?.toMoviesList()
         }
+
+        setActorsData()
+    }
+
+    private fun setActorsData() {
+        (recycler?.adapter as? ActorAdapter)?.bindActor(actorsList)
     }
 
     override fun onAttach(context: Context) {
@@ -56,5 +64,12 @@ class FragmentMoviesDetails : Fragment() {
                         putString(ARG_MOVIE_ID, movieId)
                     }
                 }
+
+        val actorsList = listOf<Actor>(
+                Actor("Someone", "Cool", R.drawable.img_evans),
+                Actor("Someone", "Cool", R.drawable.img_evans),
+                Actor("Someone", "Cool", R.drawable.img_evans),
+                Actor("Someone", "Cool", R.drawable.img_evans)
+        )
     }
 }

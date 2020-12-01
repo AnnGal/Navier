@@ -10,9 +10,11 @@ data class Movie(
         val ageRating: String,
         val like: Boolean) {
 
-    // show reviews count as string
+    // reviews as string
     val reviewString: String
         get() = if (reviews == 1) "$reviews review" else "$reviews reviews"
+
+    // duration with unit
     val durationString: String
         get() = "$duration MIN"
 }
