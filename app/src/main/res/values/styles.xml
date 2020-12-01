@@ -40,8 +40,6 @@
     <style name="ImageViewActorStyle">
         <item name="android:layout_width">@dimen/actor_icon_size</item>
         <item name="android:layout_height">@dimen/actor_icon_size</item>
-        <item name="android:layout_marginTop">@dimen/view_medium_gap</item>
-        <item name="android:contentDescription">@string/image_of_actor_or_actress</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
 
@@ -81,12 +79,6 @@
         <item name="android:maxHeight">4dp</item>
         <item name="colorControlNormal">@color/white</item>
         <item name="colorControlActivated">@color/accent</item>
-    </style>
-
-    <style name="MyRatingBar3" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/rating_bar_small_stars</item>
-        <item name="android:minHeight">8dp</item>
-        <item name="android:maxHeight">8dp</item>
     </style>
 
 
