@@ -1,9 +1,8 @@
 package an.maguste.android.navier
 
+import an.maguste.android.navier.adapters.ActorAdapter
 import an.maguste.android.navier.model.Actor
-import an.maguste.android.navier.model.ActorAdapter
 import an.maguste.android.navier.model.ChangeFragment
-import an.maguste.android.navier.model.MovieAdapter
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,9 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 class FragmentMoviesDetails : Fragment() {
 
@@ -31,6 +28,7 @@ class FragmentMoviesDetails : Fragment() {
 
         recycler = view.findViewById(R.id.recyclerView)
         recycler?.adapter = ActorAdapter()
+        recycler?.hasFixedSize()
 
         view.findViewById<Button>(R.id.toolbar).setOnClickListener {
             listener?.toMoviesList()
@@ -65,11 +63,11 @@ class FragmentMoviesDetails : Fragment() {
                     }
                 }
 
-        val actorsList = listOf<Actor>(
-                Actor("Someone", "Cool", R.drawable.img_evans),
-                Actor("Someone", "Cool", R.drawable.img_evans),
-                Actor("Someone", "Cool", R.drawable.img_evans),
-                Actor("Someone", "Cool", R.drawable.img_evans)
+        val actorsList = listOf(
+                Actor("Robert", "Downey Jr.", R.drawable.img_downey),
+                Actor("Chris", "Evans", R.drawable.img_evans),
+                Actor("Mark", "Ruffalo", R.drawable.img_ruffalo),
+                Actor("Chris", "Hemsworth", R.drawable.img_hemsworth)
         )
     }
 }

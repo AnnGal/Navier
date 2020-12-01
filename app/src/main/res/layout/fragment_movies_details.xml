@@ -157,14 +157,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/view_big_gap"
             android:layout_marginEnd="@dimen/view_big_gap"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvCast"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/view_holder_actor"
-            tools:itemCount="4"/>
+            tools:itemCount="4"
+            tools:listitem="@layout/view_holder_actor" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:cardCornerRadius="4dp"
-    android:layout_marginEnd="@dimen/view_medium_gap"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/view_medium_gap"
+    app:cardCornerRadius="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
             android:id="@+id/ivActorsImage"
             style="@style/ImageViewActorLandStyle"
             android:contentDescription="@string/image_of_actor_or_actress"
-            tools:src="@tools:sample/avatars"/>
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tvActorFullName"
@@ -27,9 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_under_image_view_gap"
             android:gravity="start"
-            android:minLines="2"
             android:maxLines="2"
-            tools:text="@tools:sample/full_names"/>
+            android:minLines="2"
+            tools:text="@tools:sample/full_names" />
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

@@ -1,6 +1,7 @@
-package an.maguste.android.navier.model
+package an.maguste.android.navier.adapters
 
 import an.maguste.android.navier.R
+import an.maguste.android.navier.model.Actor
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
