@@ -1,6 +1,7 @@
 package an.maguste.android.navier
 
 import an.maguste.android.navier.model.ChangeFragment
+import an.maguste.android.navier.model.MovieAdapter
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,10 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 class FragmentMoviesDetails : Fragment() {
 
     private var listener: ChangeFragment? = null
+    private var recycler: RecyclerView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -21,6 +26,10 @@ class FragmentMoviesDetails : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        recycler = view.findViewById(R.id.recyclerView)
+        //TODO recycler?.adapter = MovieAdapter()
+
         view.findViewById<Button>(R.id.toolbar).setOnClickListener {
             listener?.toMoviesList()
         }
