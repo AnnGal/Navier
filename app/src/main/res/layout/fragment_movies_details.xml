@@ -151,100 +151,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvStorylineText" />
 
-        <ImageView
-            android:id="@+id/imgDowney"
-            style="@style/ImageViewActorStyle"
-            android:layout_marginStart="@dimen/layout_gap"
-            android:contentDescription="@string/image_of_actor_or_actress"
-            app:layout_constraintEnd_toStartOf="@+id/imgEvans"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/view_big_gap"
+            android:layout_marginEnd="@dimen/view_big_gap"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvCast"
-            app:srcCompat="@drawable/img_downey" />
-
-        <TextView
-            android:id="@+id/tvDowney"
-            style="@style/TextImageStyle"
-            android:layout_width="@dimen/actor_icon_size"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_under_image_view_gap"
-            android:gravity="start"
-            android:maxLines="2"
-            android:text="@string/robert_downey_jr"
-            app:layout_constraintEnd_toEndOf="@+id/imgDowney"
-            app:layout_constraintStart_toStartOf="@+id/imgDowney"
-            app:layout_constraintTop_toBottomOf="@+id/imgDowney" />
-
-        <ImageView
-            android:id="@+id/imgEvans"
-            style="@style/ImageViewActorStyle"
-            android:contentDescription="@string/image_of_actor_or_actress"
-            app:layout_constraintEnd_toStartOf="@+id/imgRuffalo"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgDowney"
-            app:layout_constraintTop_toBottomOf="@+id/tvCast"
-            app:srcCompat="@drawable/img_evans" />
-
-        <TextView
-            android:id="@+id/tvEvans"
-            style="@style/TextImageStyle"
-            android:layout_width="@dimen/actor_icon_size"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_under_image_view_gap"
-            android:gravity="start"
-            android:maxLines="2"
-            android:text="@string/chris_evans"
-            app:layout_constraintEnd_toEndOf="@+id/imgEvans"
-            app:layout_constraintStart_toStartOf="@+id/imgEvans"
-            app:layout_constraintTop_toBottomOf="@+id/imgEvans" />
-
-        <ImageView
-            android:id="@+id/imgRuffalo"
-            style="@style/ImageViewActorStyle"
-            android:contentDescription="@string/image_of_actor_or_actress"
-            app:layout_constraintEnd_toStartOf="@+id/imgHemsworth"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgEvans"
-            app:layout_constraintTop_toBottomOf="@+id/tvCast"
-            app:srcCompat="@drawable/img_ruffalo" />
-
-        <TextView
-            android:id="@+id/tvRuffalo"
-            style="@style/TextImageStyle"
-            android:layout_width="@dimen/actor_icon_size"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_under_image_view_gap"
-            android:gravity="start"
-            android:maxLines="2"
-            android:text="@string/mark_ruffalo"
-            app:layout_constraintEnd_toEndOf="@+id/imgRuffalo"
-            app:layout_constraintStart_toStartOf="@+id/imgRuffalo"
-            app:layout_constraintTop_toBottomOf="@+id/imgRuffalo" />
-
-        <ImageView
-            android:id="@+id/imgHemsworth"
-            style="@style/ImageViewActorStyle"
-            android:layout_marginEnd="@dimen/layout_gap"
-            android:contentDescription="@string/image_of_actor_or_actress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imgRuffalo"
-            app:layout_constraintTop_toBottomOf="@+id/tvCast"
-            app:srcCompat="@drawable/img_hemsworth" />
-
-        <TextView
-            android:id="@+id/tvHemsworth"
-            style="@style/TextImageStyle"
-            android:layout_width="@dimen/actor_icon_size"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_under_image_view_gap"
-            android:gravity="start"
-            android:maxLines="2"
-            android:text="@string/chris_hemsworth"
-            app:layout_constraintEnd_toEndOf="@+id/imgHemsworth"
-            app:layout_constraintStart_toStartOf="@+id/imgHemsworth"
-            app:layout_constraintTop_toBottomOf="@+id/imgHemsworth" />
+            tools:itemCount="4"
+            tools:listitem="@layout/view_holder_actor" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

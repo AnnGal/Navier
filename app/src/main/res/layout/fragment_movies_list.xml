@@ -25,149 +25,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_view"
-            android:layout_width="@dimen/movie_card_width"
-            android:layout_height="@dimen/movie_card_height"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/view_big_gap"
-            android:layout_marginTop="@dimen/view_big_gap"
-            android:padding="@dimen/view_medium_gap"
-            app:cardBackgroundColor="@color/view_card_border"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="0dp"
-            app:cardPreventCornerOverlap="false"
+            android:layout_marginEnd="@dimen/view_big_gap"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:rippleColor="@android:color/transparent"
-            app:strokeColor="@color/cardview_dark_background"
-            app:strokeWidth="1dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/view_card_background_end">
-
-                <ImageView
-                    android:id="@+id/imgTitlePoster"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/movie_card_image_height"
-                    android:contentDescription="@string/image_of_main_poster"
-                    android:scaleType="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/img_avengers" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@drawable/gradient_view_card"
-                    app:layout_constraintBottom_toBottomOf="@+id/imgTitlePoster"
-                    app:layout_constraintEnd_toEndOf="@+id/imgTitlePoster"
-                    app:layout_constraintStart_toStartOf="@+id/imgTitlePoster"
-                    app:layout_constraintTop_toTopOf="@+id/imgTitlePoster" />
-
-                <TextView
-                    android:id="@+id/tvAgeRating"
-                    android:layout_width="@dimen/button_square_size_normal"
-                    android:layout_height="@dimen/button_square_size_normal"
-                    android:layout_marginStart="@dimen/view_medium_gap"
-                    android:layout_marginTop="@dimen/view_medium_gap"
-                    android:background="@drawable/button_corner_rounded"
-                    android:fontFamily="@font/roboto_bold"
-                    android:gravity="center"
-                    android:text="@string/age_rating_default"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/ivLike"
-                    android:layout_width="@dimen/size_icon"
-                    android:layout_height="@dimen/size_icon"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="@string/image_like"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvAgeRating"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvAgeRating"
-                    app:srcCompat="@drawable/ic_like" />
-
-                <TextView
-                    android:id="@+id/tvGenres"
-                    style="@style/TextAppearance.AppCompat.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="4dp"
-                    android:text="@string/movie_genres_card"
-                    android:textColor="@color/accent"
-                    android:textSize="8sp"
-                    app:layout_constraintBottom_toTopOf="@+id/ratingBar"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <!--don't know how to make rating bar even more smaller-->
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:rating="4"
-                    android:scaleX=".8"
-                    android:scaleY=".8"
-                    android:theme="@style/RatingBarStyle"
-                    app:layout_constraintBottom_toBottomOf="@+id/imgTitlePoster"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvReviews"
-                    style="@style/ReviewTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/movie_reviews"
-                    android:textSize="8sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
-                    app:layout_constraintStart_toEndOf="@+id/ratingBar"
-                    app:layout_constraintTop_toTopOf="@+id/ratingBar"
-                    tools:ignore="RtlSymmetry"
-                    tools:text="125 Reviews" />
-
-                <TextView
-                    android:id="@+id/tvTitle"
-                    style="@style/TextHeaderStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/view_medium_gap"
-                    android:layout_marginTop="@dimen/view_medium_gap"
-                    android:text="@string/movie_title_card"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toTopOf="@+id/tvDuration"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imgTitlePoster"
-                    tools:text="Avengers: End Game" />
-
-                <TextView
-                    android:id="@+id/tvDuration"
-                    style="@style/ReviewTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="bottom"
-                    android:text="@string/movie_duration"
-                    android:textSize="8sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+            tools:itemCount="4"
+            tools:listitem="@layout/view_holder_movie" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
