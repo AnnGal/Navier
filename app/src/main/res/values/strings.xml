@@ -22,4 +22,12 @@
     <string name="movie_genres_card">Action, Adventure, Drama</string>
     <string name="movie_duration">137 min</string>
     <string name="image_like">image of like icon</string>
+
+    <plurals name="review">
+        <item quantity="one">%1$d review</item>
+        <item quantity="other">%1$d reviews</item>
+    </plurals>
+
+    <string name="duration_unit">%1$d min</string>
+
 </resources>

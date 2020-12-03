@@ -8,13 +8,4 @@ data class Movie(
         val reviews: Int,
         val duration: Int,
         val ageRating: String,
-        val like: Boolean) {
-
-    // reviews as string
-    val reviewString: String
-        get() = if (reviews == 1) "$reviews review" else "$reviews reviews"
-
-    // duration with unit
-    val durationString: String
-        get() = "$duration MIN"
-}
+        val like: Boolean)

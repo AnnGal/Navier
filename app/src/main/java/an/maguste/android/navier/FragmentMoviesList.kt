@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 class FragmentMoviesList : Fragment() {
 
     private var recycler: RecyclerView? = null
+    private var listenerFragment: ChangeFragment? = null
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -72,8 +73,6 @@ class FragmentMoviesList : Fragment() {
     }
 
     companion object{
-        private var listenerFragment: ChangeFragment? = null
-
         val moviesList = listOf(
                 Movie(title = "Avengers: End Game", rating = 4.0, posterImage = R.drawable.img_avengers,
                         genres = listOf("Action", "Adventure", "Drama"), reviews = 125,

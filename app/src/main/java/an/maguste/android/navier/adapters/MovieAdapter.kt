@@ -43,18 +43,15 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val title = itemView.findViewById<TextView>(R.id.tvTitle)
     private val duration = itemView.findViewById<TextView>(R.id.tvDuration)
 
-
     fun bind(movie: Movie) {
         poster.setImageResource(movie.posterImage)
         ageRating.text = movie.ageRating
-        if (movie.like) {
-            like.setImageResource(R.drawable.ic_like)
-        } else { like.setImageResource(R.drawable.ic_like_empty) }
+        like.setImageResource(if (movie.like) R.drawable.ic_like else R.drawable.ic_like_empty)
         genres.text = movie.genres.joinToString(", ")
         ratingBar.rating = movie.rating.toFloat()
-        reviews.text = movie.reviewString
+        reviews.text = itemView.resources.getQuantityString(R.plurals.review, movie.reviews, movie.reviews)
         title.text = movie.title
-        duration.text = movie.durationString
+        duration.text = itemView.resources.getString(R.string.duration_unit, movie.duration)
     }
 }
 
