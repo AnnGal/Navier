@@ -2,23 +2,37 @@ package an.maguste.android.navier
 
 import an.maguste.android.navier.adapters.MovieAdapter
 import an.maguste.android.navier.adapters.OnMovieClickListener
-import an.maguste.android.navier.model.ChangeFragment
-import an.maguste.android.navier.model.Movie
+import an.maguste.android.navier.data.ChangeFragment
+import an.maguste.android.navier.data.Movie
+import an.maguste.android.navier.data.loadMovies
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.*
 
 
 class FragmentMoviesList : Fragment() {
 
     private var recycler: RecyclerView? = null
     private var listenerFragment: ChangeFragment? = null
+    private var moviesList: List<Movie>? = null
+
+    private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, exception ->
+        Log.d("moviesList","CoroutineExceptionHandler got $exception")
+    }
+
+    private var scope = CoroutineScope(
+            SupervisorJob() +
+                    Dispatchers.IO +
+                    exceptionHandler
+    )
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +63,14 @@ class FragmentMoviesList : Fragment() {
         recycler?.hasFixedSize()
 
         // "upload" movies data
-        setMovieData()
+        getMovieData()
+    }
+
+    private fun getMovieData() {
+        scope.launch {
+            moviesList = context?.let { loadMovies(it) }
+            setMovieData()
+        }
     }
 
     // count of grid's columns depends from orientation
@@ -61,20 +82,22 @@ class FragmentMoviesList : Fragment() {
 
     private fun setMovieData() {
         (recycler?.adapter as? MovieAdapter)?.apply {
-            bindMovie(moviesList)
+            Log.d("moviesList", "moviesList size = ${moviesList?.size}")
+            moviesList?.let { bindMovie(it) }
         }
     }
 
     // on MovieCard click reaction
     private val movieListener = object: OnMovieClickListener {
         override fun onClick(movie: Movie) {
-            listenerFragment?.toMovieDetail()
+            listenerFragment?.toMovieDetail(movie)
         }
     }
 
     companion object{
-        val moviesList = listOf(
-                Movie(title = "Avengers: End Game", rating = 4.0, posterImage = R.drawable.img_avengers,
+/*        val moviesList = listOf<Movie>(
+
+             *//*   Movie(title = "Avengers: End Game", rating = 4.0, posterImage = R.drawable.img_avengers,
                         genres = listOf("Action", "Adventure", "Drama"), reviews = 125,
                         duration = 137, ageRating = "13+", like = false),
                 Movie(title = "Tenet", rating = 5.0, posterImage = R.drawable.img_tenet,
@@ -85,8 +108,8 @@ class FragmentMoviesList : Fragment() {
                         duration = 102, ageRating = "13+", like = false),
                 Movie(title = "Wonder Woman 1984", rating = 5.0, posterImage = R.drawable.img_wonder_woman_1984,
                         genres = listOf("Action", "Adventure", "Fantasy"), reviews = 74,
-                        duration = 120, ageRating = "13+", like = false)
+                        duration = 120, ageRating = "13+", like = false)*//*
 
-        )
+        )*/
     }
 }

@@ -1,11 +1,12 @@
 package an.maguste.android.navier
 
-import an.maguste.android.navier.model.ChangeFragment
+import an.maguste.android.navier.data.Movie
+import an.maguste.android.navier.data.ChangeFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 
 class MainActivity : AppCompatActivity(), ChangeFragment {
 
@@ -20,9 +21,16 @@ class MainActivity : AppCompatActivity(), ChangeFragment {
         }
     }
 
-    override fun toMovieDetail() {
+    override fun toMovieDetail(movie: Movie) {
+        //val fragmentDetail: FragmentMoviesDetails = FragmentMoviesDetails.newInstance(movie)
+        Log.d("PARCEL", "movie sended = ${movie?.title}")
+        val bundle = Bundle().apply {
+            putParcelable(Movie::class.java.simpleName, movie)
+        }
+
+        //bundle.putParcelable(Movie::class.java.simpleName, movie)
         supportFragmentManager.commit {
-            add<FragmentMoviesDetails>(R.id.fragment_place)
+            add<FragmentMoviesDetails>(containerViewId = R.id.fragment_place, args = bundle)
             addToBackStack(null)
         }
     }

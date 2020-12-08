@@ -1,7 +1,7 @@
 package an.maguste.android.navier.adapters
 
 import an.maguste.android.navier.R
-import an.maguste.android.navier.model.Movie
+import an.maguste.android.navier.data.Movie
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +9,9 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 
 class MovieAdapter(private var movieListener: OnMovieClickListener) : RecyclerView.Adapter<MovieViewHolder>() {
 
@@ -30,7 +33,6 @@ class MovieAdapter(private var movieListener: OnMovieClickListener) : RecyclerVi
         moviesList = newMoviesList
         notifyDataSetChanged()
     }
-
 }
 
 class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -44,15 +46,23 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val duration = itemView.findViewById<TextView>(R.id.tvDuration)
 
     fun bind(movie: Movie) {
-        poster.setImageResource(movie.posterImage)
-        ageRating.text = movie.ageRating
+        Glide.with(itemView.context)
+            .load(movie.poster)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .apply(RequestOptions().centerCrop())
+            .into(poster)
+
+        if (!movie.adult) ageRating.visibility = View.INVISIBLE
+        else ageRating.text = itemView.resources.getString(R.string.age_rating_default)
+
         like.setImageResource(if (movie.like) R.drawable.ic_like else R.drawable.ic_like_empty)
-        genres.text = movie.genres.joinToString(", ")
-        ratingBar.rating = movie.rating.toFloat()
+        genres.text = movie.genres.joinToString(", ") { it.name }
+        ratingBar.rating =  (movie.ratings / 2)
         reviews.text = itemView.resources.getQuantityString(R.plurals.review, movie.reviews, movie.reviews)
         title.text = movie.title
-        duration.text = itemView.resources.getString(R.string.duration_unit, movie.duration)
+        duration.text = itemView.resources.getString(R.string.duration_unit, movie.runtime)
     }
+
 }
 
 interface OnMovieClickListener{
