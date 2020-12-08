@@ -41,8 +41,10 @@
             android:background="@drawable/gradient_view_card"
             app:layout_constraintBottom_toBottomOf="@+id/imgTitlePoster"
             app:layout_constraintEnd_toEndOf="@+id/imgTitlePoster"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/imgTitlePoster"
-            app:layout_constraintTop_toTopOf="@+id/imgTitlePoster" />
+            app:layout_constraintTop_toTopOf="@+id/imgTitlePoster"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tvAgeRating"
@@ -73,13 +75,16 @@
         <TextView
             android:id="@+id/tvGenres"
             style="@style/TextAppearance.AppCompat.Small"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/view_medium_gap"
+            android:layout_marginEnd="@dimen/view_medium_gap"
             android:layout_marginBottom="4dp"
             android:textColor="@color/accent"
             android:textSize="8sp"
             app:layout_constraintBottom_toTopOf="@+id/ratingBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="@string/movie_genres_card" />
 
@@ -114,10 +119,12 @@
         <TextView
             android:id="@+id/tvTitle"
             style="@style/TextHeaderStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/view_medium_gap"
             android:layout_marginTop="@dimen/view_medium_gap"
+            android:layout_marginEnd="@dimen/view_medium_gap"
+            android:maxLines="1"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/tvDuration"
             app:layout_constraintEnd_toEndOf="parent"
