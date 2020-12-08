@@ -24,8 +24,8 @@ class FragmentMoviesList : Fragment() {
     private var listenerFragment: ChangeFragment? = null
     private var moviesList: List<Movie>? = null
 
-    private val exceptionHandler = CoroutineExceptionHandler { coroutineContext, exception ->
-        Log.d("moviesList","CoroutineExceptionHandler got $exception")
+    private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
+        Log.d(FragmentMoviesList::class.java.simpleName,"CoroutineException: $exception")
     }
 
     private var scope = CoroutineScope(
@@ -82,7 +82,6 @@ class FragmentMoviesList : Fragment() {
 
     private fun setMovieData() {
         (recycler?.adapter as? MovieAdapter)?.apply {
-            Log.d("moviesList", "moviesList size = ${moviesList?.size}")
             moviesList?.let { bindMovie(it) }
         }
     }
@@ -94,22 +93,4 @@ class FragmentMoviesList : Fragment() {
         }
     }
 
-    companion object{
-/*        val moviesList = listOf<Movie>(
-
-             *//*   Movie(title = "Avengers: End Game", rating = 4.0, posterImage = R.drawable.img_avengers,
-                        genres = listOf("Action", "Adventure", "Drama"), reviews = 125,
-                        duration = 137, ageRating = "13+", like = false),
-                Movie(title = "Tenet", rating = 5.0, posterImage = R.drawable.img_tenet,
-                        genres = listOf("Action", "Sci-Fi", "Thriller"), reviews = 98,
-                        duration = 97, ageRating = "16+", like = true),
-                Movie(title = "Black Widow", rating = 4.0, posterImage = R.drawable.img_black_widow,
-                        genres = listOf("Action", "Adventure", "Sci-Fi"), reviews = 38,
-                        duration = 102, ageRating = "13+", like = false),
-                Movie(title = "Wonder Woman 1984", rating = 5.0, posterImage = R.drawable.img_wonder_woman_1984,
-                        genres = listOf("Action", "Adventure", "Fantasy"), reviews = 74,
-                        duration = 120, ageRating = "13+", like = false)*//*
-
-        )*/
-    }
 }

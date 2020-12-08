@@ -6,7 +6,6 @@ import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.databinding.FragmentMoviesDetailsBinding
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +25,7 @@ class FragmentMoviesDetails : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
         _binding = FragmentMoviesDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,13 +41,12 @@ class FragmentMoviesDetails : Fragment() {
             listener?.toMoviesList()
         }
 
-        Log.d("PARCEL", "try to get movie 1 ${requireArguments().isEmpty}")
+        // parcelize Movie
         val movie: Movie? = requireArguments().getParcelable(Movie::class.java.simpleName)
-        Log.d("PARCEL", "movie income 1 = ${movie?.title}")
-
         movie?.let{ setMovieData(it) }
     }
 
+    // set data on fragment
     private fun setMovieData(movie: Movie) {
         Glide.with(requireContext())
             .load(movie.backdrop)
@@ -59,8 +57,8 @@ class FragmentMoviesDetails : Fragment() {
         movie.apply {
             // remove age rating or put correct
             when {
-                !adult -> { binding.tvAgeRating.visibility = View.INVISIBLE }
-                else -> { binding.tvAgeRating.text = resources.getString(R.string.age_rating_default) }
+                adult -> { binding.tvAgeRating.text = resources.getString(R.string.age_rating_default) }
+                else -> { binding.tvAgeRating.visibility = View.INVISIBLE }
             }
 
             // set movie data
@@ -76,7 +74,6 @@ class FragmentMoviesDetails : Fragment() {
                 else -> binding.tvCast.visibility = View.INVISIBLE
             }
         }
-
     }
 
     override fun onAttach(context: Context) {

@@ -52,8 +52,10 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .apply(RequestOptions().centerCrop())
             .into(poster)
 
-        if (!movie.adult) ageRating.visibility = View.INVISIBLE
-        else ageRating.text = itemView.resources.getString(R.string.age_rating_default)
+        when {
+            movie.adult -> ageRating.text = itemView.resources.getString(R.string.age_rating_default)
+            else -> ageRating.visibility = View.INVISIBLE
+        }
 
         like.setImageResource(if (movie.like) R.drawable.ic_like else R.drawable.ic_like_empty)
         genres.text = movie.genres.joinToString(", ") { it.name }
