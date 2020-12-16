@@ -5,6 +5,7 @@ import an.maguste.android.navier.adapters.OnMovieClickListener
 import an.maguste.android.navier.data.ChangeFragment
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.data.loadMovies
+import an.maguste.android.navier.databinding.FragmentMoviesListBinding
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
@@ -14,15 +15,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.*
 
 
 class FragmentMoviesList : Fragment() {
 
-    private var recycler: RecyclerView? = null
     private var listenerFragment: ChangeFragment? = null
-    private var moviesList: List<Movie>? = null
+
+    private var _binding: FragmentMoviesListBinding? = null
+    private val binding get() = _binding!!
 
     private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
         Log.d(FragmentMoviesList::class.java.simpleName,"CoroutineException: $exception")
@@ -37,9 +38,9 @@ class FragmentMoviesList : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
-        // catch layout
-        return inflater.inflate(R.layout.fragment_movies_list, container, false)
+    ): View {
+        _binding = FragmentMoviesListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onAttach(context: Context) {
@@ -57,19 +58,23 @@ class FragmentMoviesList : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // set recycler grid
-        recycler = view.findViewById(R.id.recyclerView)
-        recycler?.adapter = MovieAdapter(movieListener)
-        recycler?.layoutManager = GridLayoutManager(context, getSpanCount())
-        recycler?.hasFixedSize()
+        binding.recyclerView.adapter = MovieAdapter(movieListener)
+        binding.recyclerView.layoutManager = GridLayoutManager(context, getSpanCount())
+        binding.recyclerView.hasFixedSize()
 
         // "upload" movies data
         getMovieData()
     }
 
     private fun getMovieData() {
+        var moviesList: List<Movie>? = null
         scope.launch {
-            moviesList = context?.let { loadMovies(it) }
-            setMovieData()
+            // get movie list
+            moviesList = loadMovies(requireContext())
+            // send list into adapter
+            (binding.recyclerView.adapter as? MovieAdapter)?.apply {
+                moviesList?.let { bindMovie(it) }
+            }
         }
     }
 
@@ -80,12 +85,6 @@ class FragmentMoviesList : Fragment() {
             else -> 2
         }
 
-    private fun setMovieData() {
-        (recycler?.adapter as? MovieAdapter)?.apply {
-            moviesList?.let { bindMovie(it) }
-        }
-    }
-
     // on MovieCard click reaction
     private val movieListener = object: OnMovieClickListener {
         override fun onClick(movie: Movie) {
@@ -93,4 +92,9 @@ class FragmentMoviesList : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        scope.cancel()
+        _binding = null
+    }
 }

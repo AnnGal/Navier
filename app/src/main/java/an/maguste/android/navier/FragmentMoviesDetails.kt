@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -19,7 +17,6 @@ import com.bumptech.glide.request.RequestOptions
 class FragmentMoviesDetails : Fragment() {
 
     private var listener: ChangeFragment? = null
-    private var recycler: RecyclerView? = null
 
     private var _binding: FragmentMoviesDetailsBinding? = null
     private val binding get() = _binding!!
@@ -33,11 +30,10 @@ class FragmentMoviesDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recycler = view.findViewById(R.id.recyclerView)
-        recycler?.adapter = ActorAdapter()
-        recycler?.hasFixedSize()
+        binding.recyclerView.adapter = ActorAdapter()
+        binding.recyclerView.hasFixedSize()
 
-        view.findViewById<Button>(R.id.toolbar).setOnClickListener {
+        binding.toolbar.setOnClickListener {
             listener?.toMoviesList()
         }
 
@@ -52,26 +48,26 @@ class FragmentMoviesDetails : Fragment() {
             .load(movie.backdrop)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .apply(imageOption)
-            .into(binding.imgTitlePoster)
+            .into(binding.poster)
 
-        movie.apply {
+        with(movie) {
             // remove age rating or put correct
             when {
-                adult -> { binding.tvAgeRating.text = resources.getString(R.string.age_rating_default) }
-                else -> { binding.tvAgeRating.visibility = View.INVISIBLE }
+                adult -> { binding.ageRating.text = resources.getString(R.string.age_rating_default) }
+                else -> { binding.ageRating.visibility = View.INVISIBLE }
             }
 
             // set movie data
-            binding.tvTitle.text = title
-            binding.tvGenres.text = genres.joinToString(", ") { it.name }
+            binding.title.text = title
+            binding.genres.text = genres.joinToString(", ") { it.name }
             binding.ratingBar.rating = ratings / 2
-            binding.tvReviews.text = resources.getQuantityString(R.plurals.review, reviews, reviews)
-            binding.tvStorylineText.text = overview
+            binding.reviews.text = resources.getQuantityString(R.plurals.review, reviews, reviews)
+            binding.storylineText.text = overview
 
             // check actors list not empty
             when {
-                actors.isNotEmpty() -> (recycler?.adapter as? ActorAdapter)?.bindActor(actors)
-                else -> binding.tvCast.visibility = View.INVISIBLE
+                actors.isNotEmpty() -> (binding.recyclerView.adapter as? ActorAdapter)?.bindActor(actors)
+                else -> binding.cast.visibility = View.INVISIBLE
             }
         }
     }
