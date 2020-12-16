@@ -2,30 +2,45 @@ package an.maguste.android.navier
 
 import an.maguste.android.navier.adapters.MovieAdapter
 import an.maguste.android.navier.adapters.OnMovieClickListener
-import an.maguste.android.navier.model.ChangeFragment
-import an.maguste.android.navier.model.Movie
+import an.maguste.android.navier.data.ChangeFragment
+import an.maguste.android.navier.data.Movie
+import an.maguste.android.navier.data.loadMovies
+import an.maguste.android.navier.databinding.FragmentMoviesListBinding
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.*
 
 
 class FragmentMoviesList : Fragment() {
 
-    private var recycler: RecyclerView? = null
     private var listenerFragment: ChangeFragment? = null
+
+    private var _binding: FragmentMoviesListBinding? = null
+    private val binding get() = _binding!!
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, exception ->
+        Log.d(FragmentMoviesList::class.java.simpleName,"CoroutineException: $exception")
+    }
+
+    private var scope = CoroutineScope(
+            SupervisorJob() +
+                    Dispatchers.IO +
+                    exceptionHandler
+    )
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
-        // catch layout
-        return inflater.inflate(R.layout.fragment_movies_list, container, false)
+    ): View {
+        _binding = FragmentMoviesListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onAttach(context: Context) {
@@ -43,13 +58,24 @@ class FragmentMoviesList : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // set recycler grid
-        recycler = view.findViewById(R.id.recyclerView)
-        recycler?.adapter = MovieAdapter(movieListener)
-        recycler?.layoutManager = GridLayoutManager(context, getSpanCount())
-        recycler?.hasFixedSize()
+        binding.recyclerView.adapter = MovieAdapter(movieListener)
+        binding.recyclerView.layoutManager = GridLayoutManager(context, getSpanCount())
+        binding.recyclerView.hasFixedSize()
 
         // "upload" movies data
-        setMovieData()
+        getMovieData()
+    }
+
+    private fun getMovieData() {
+        var moviesList: List<Movie>? = null
+        scope.launch {
+            // get movie list
+            moviesList = loadMovies(requireContext())
+            // send list into adapter
+            (binding.recyclerView.adapter as? MovieAdapter)?.apply {
+                moviesList?.let { bindMovie(it) }
+            }
+        }
     }
 
     // count of grid's columns depends from orientation
@@ -59,34 +85,16 @@ class FragmentMoviesList : Fragment() {
             else -> 2
         }
 
-    private fun setMovieData() {
-        (recycler?.adapter as? MovieAdapter)?.apply {
-            bindMovie(moviesList)
-        }
-    }
-
     // on MovieCard click reaction
     private val movieListener = object: OnMovieClickListener {
         override fun onClick(movie: Movie) {
-            listenerFragment?.toMovieDetail()
+            listenerFragment?.toMovieDetail(movie)
         }
     }
 
-    companion object{
-        val moviesList = listOf(
-                Movie(title = "Avengers: End Game", rating = 4.0, posterImage = R.drawable.img_avengers,
-                        genres = listOf("Action", "Adventure", "Drama"), reviews = 125,
-                        duration = 137, ageRating = "13+", like = false),
-                Movie(title = "Tenet", rating = 5.0, posterImage = R.drawable.img_tenet,
-                        genres = listOf("Action", "Sci-Fi", "Thriller"), reviews = 98,
-                        duration = 97, ageRating = "16+", like = true),
-                Movie(title = "Black Widow", rating = 4.0, posterImage = R.drawable.img_black_widow,
-                        genres = listOf("Action", "Adventure", "Sci-Fi"), reviews = 38,
-                        duration = 102, ageRating = "13+", like = false),
-                Movie(title = "Wonder Woman 1984", rating = 5.0, posterImage = R.drawable.img_wonder_woman_1984,
-                        genres = listOf("Action", "Adventure", "Fantasy"), reviews = 74,
-                        duration = 120, ageRating = "13+", like = false)
-
-        )
+    override fun onDestroyView() {
+        super.onDestroyView()
+        scope.cancel()
+        _binding = null
     }
 }

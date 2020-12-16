@@ -1,13 +1,16 @@
 package an.maguste.android.navier.adapters
 
 import an.maguste.android.navier.R
-import an.maguste.android.navier.model.Actor
+import an.maguste.android.navier.data.Actor
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 
 class ActorAdapter : RecyclerView.Adapter<ActorViewHolder>() {
 
@@ -36,7 +39,19 @@ class ActorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
     private val name = itemView.findViewById<TextView>(R.id.tvActorFullName)
 
     fun bind(actor: Actor) {
-        image.setImageResource(actor.photo_image)
-        name.text = actor.fullName
+        Glide.with(itemView.context)
+            .load(actor.picture)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .apply(imageOption)
+            .into(image)
+
+        name.text = actor.name
+    }
+
+    companion object {
+        private val imageOption = RequestOptions()
+            .placeholder(R.drawable.empty_photo)
+            .fallback(R.drawable.empty_photo)
+            .centerCrop()
     }
 }

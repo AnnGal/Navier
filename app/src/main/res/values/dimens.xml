@@ -12,4 +12,6 @@
     <dimen name="movie_card_image_width">166dp</dimen>
     <dimen name="movie_card_image_height">248dp</dimen>
     <dimen name="size_icon">16dp</dimen>
+    <dimen name="size_movie_poster">160dp</dimen>
+    <dimen name="size_movie_background_height">300dp</dimen>
 </resources>
