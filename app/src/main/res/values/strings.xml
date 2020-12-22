@@ -29,5 +29,7 @@
     </plurals>
 
     <string name="duration_unit">%1$d min</string>
+    <string name="desc_img_no_data">Image showing data not available</string>
+    <string name="message_lost_data">No data available. Please try again later</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package an.maguste.android.navier.data
 
 import android.content.Context
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerialName
@@ -41,7 +42,8 @@ private class JsonMovie(
         val reviews: Int
 )
 
-private suspend fun loadGenres(context: Context): List<Genre> = withContext(Dispatchers.IO) {
+private suspend fun loadGenres(context: Context,
+                               dispatcher: CoroutineDispatcher): List<Genre> = withContext(dispatcher) {
     val data = readAssetFileToString(context, "genres.json")
     parseGenres(data)
 }
@@ -57,7 +59,8 @@ private fun readAssetFileToString(context: Context, fileName: String): String {
     }
 }
 
-private suspend fun loadActors(context: Context): List<Actor> = withContext(Dispatchers.IO) {
+private suspend fun loadActors(context: Context,
+                               dispatcher: CoroutineDispatcher): List<Actor> = withContext(dispatcher) {
     val data = readAssetFileToString(context, "people.json")
     parseActors(data)
 }
@@ -67,9 +70,10 @@ internal fun parseActors(data: String): List<Actor> {
     return jsonActors.map { Actor(id = it.id, name = it.name, picture = it.profilePicture) }
 }
 
-internal suspend fun loadMovies(context: Context): List<Movie> = withContext(Dispatchers.IO) {
-    val genresMap = loadGenres(context)
-    val actorsMap = loadActors(context)
+internal suspend fun loadMovies(context: Context,
+                                dispatcher: CoroutineDispatcher): List<Movie> = withContext(dispatcher) {
+    val genresMap = loadGenres(context, dispatcher)
+    val actorsMap = loadActors(context, dispatcher)
 
     val data = readAssetFileToString(context, "data.json")
     parseMovies(data, genresMap, actorsMap)

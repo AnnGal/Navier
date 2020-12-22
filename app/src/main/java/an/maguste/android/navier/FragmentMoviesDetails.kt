@@ -4,17 +4,24 @@ import an.maguste.android.navier.adapters.ActorAdapter
 import an.maguste.android.navier.data.ChangeFragment
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.databinding.FragmentMoviesDetailsBinding
+import an.maguste.android.navier.mvvm.FragmentMoviesDetailsVM
+import an.maguste.android.navier.mvvm.FragmentMoviesListVM
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
 class FragmentMoviesDetails : Fragment() {
+
+    private val viewModel: FragmentMoviesDetailsVM by lazy {
+        ViewModelProvider(this).get(FragmentMoviesDetailsVM::class.java)
+    }
 
     private var listener: ChangeFragment? = null
 

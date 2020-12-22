@@ -38,6 +38,52 @@
             tools:itemCount="4"
             tools:listitem="@layout/view_holder_movie" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:paddingTop="@dimen/state_message_offset"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <LinearLayout
+            android:id="@+id/layoutLostData"
+            android:layout_width="@dimen/error_message_size"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="@dimen/state_message_offset"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/imageLostData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/desc_img_no_data"
+                android:src="@drawable/ic_no_asset" />
+
+            <TextView
+                android:id="@+id/textLostData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/desc_img_no_data"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:paddingTop="24dp"
+                android:text="@string/message_lost_data"
+                android:textColor="@color/text_regular"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.core.widget.NestedScrollView>
