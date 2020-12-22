@@ -58,6 +58,6 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 }
 
-interface OnMovieClickListener{
-    fun onClick(movie: Movie)
+class OnMovieClickListener(val clickListener: (movie: Movie) -> Unit) {
+    fun onClick(movie: Movie) = clickListener(movie)
 }

@@ -20,8 +20,10 @@ class FragmentMoviesListVM(private val context: Context,
     private val _moviesData = MutableLiveData<List<Movie>>()
     val moviesData: LiveData<List<Movie>> get() = _moviesData
 
-    // parse asset
-    fun getMovieData() {
+    private val _selectedMovie = MutableLiveData<Movie>()
+    val selectedMovie: LiveData<Movie> get() = _selectedMovie
+
+    init {
         parseMovieAsset()
     }
 
@@ -40,6 +42,15 @@ class FragmentMoviesListVM(private val context: Context,
                 Log.e(FragmentMoviesListVM::class.java.simpleName,"Error grab movies data ${e.message}")
             }
         }
+    }
+
+    /** on MovieCard click */
+    fun selectMovie(movie: Movie){
+        _selectedMovie.value = movie
+    }
+
+    fun selectMovieShown(){
+        _selectedMovie.value = null
     }
 
     companion object{

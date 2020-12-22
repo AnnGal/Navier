@@ -3,73 +3,58 @@ package an.maguste.android.navier
 import an.maguste.android.navier.adapters.MovieAdapter
 import an.maguste.android.navier.adapters.OnMovieClickListener
 import an.maguste.android.navier.data.ChangeFragment
-import an.maguste.android.navier.data.Movie
-import an.maguste.android.navier.data.loadMovies
 import an.maguste.android.navier.databinding.FragmentMoviesListBinding
 import an.maguste.android.navier.mvvm.FragmentMoviesListVM
-import an.maguste.android.navier.mvvm.MoviesViewModelFactory
+import an.maguste.android.navier.mvvm.MoviesListViewModelFactory
 import an.maguste.android.navier.mvvm.State
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.Channel
 
 
 class FragmentMoviesList : Fragment() {
 
-   /* private val viewModel: FragmentMoviesListVM by lazy {
-        ViewModelProvider(this).get(FragmentMoviesListVM::class.java)
-    }*/
-   private lateinit var viewModel: FragmentMoviesListVM
+    /* private val viewModel: FragmentMoviesListVM by lazy {
+         ViewModelProvider(this).get(FragmentMoviesListVM::class.java)
+     }*/
+    private lateinit var viewModel: FragmentMoviesListVM
 
-    private var listenerFragment: ChangeFragment? = null
+    //private var listenerFragment: ChangeFragment? = null
 
     private var _binding: FragmentMoviesListBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMoviesListBinding.inflate(inflater, container, false)
 
-        val viewModelFactory = MoviesViewModelFactory(requireContext())
+        // create view model
+        val viewModelFactory = MoviesListViewModelFactory(requireContext())
         viewModel = ViewModelProvider(this, viewModelFactory).get(FragmentMoviesListVM::class.java)
 
         return binding.root
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        // catch listener from activity
-        listenerFragment = context as? ChangeFragment
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listenerFragment = null
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // set recycler grid
-        binding.recyclerView.adapter = MovieAdapter(movieListener)
+        // set recycler view
+        binding.recyclerView.adapter = MovieAdapter(OnMovieClickListener {
+            viewModel.selectMovie(it)
+        })
         binding.recyclerView.layoutManager = GridLayoutManager(context, getSpanCount())
 
         // watch for LiveData
         setObservers()
-
-        // get movies data
-        viewModel.getMovieData()
     }
 
 
@@ -77,9 +62,8 @@ class FragmentMoviesList : Fragment() {
     private fun setObservers() {
         // observe movies data
         viewModel.moviesData.observe(viewLifecycleOwner, { movieList ->
-            (binding.recyclerView.adapter as MovieAdapter).apply { (
-                    bindMovie(movieList)
-            )
+            (binding.recyclerView.adapter as MovieAdapter).apply {
+                bindMovie(movieList)
             }
         })
 
@@ -100,6 +84,14 @@ class FragmentMoviesList : Fragment() {
                 }
             }
         })
+
+        // observe movie selected
+        viewModel.selectedMovie.observe(viewLifecycleOwner,  {
+            if ( null != it ) {
+                this.findNavController().navigate(FragmentMoviesListDirections.actionToMoviesDetails(it))
+                viewModel.selectMovieShown()
+            }
+        })
     }
 
     /** calculate grid's columns number */
@@ -109,16 +101,9 @@ class FragmentMoviesList : Fragment() {
             else -> 2
         }
 
-    /** on MovieCard click reaction */
-    private val movieListener = object: OnMovieClickListener {
-        override fun onClick(movie: Movie) {
-            listenerFragment?.toMovieDetail(movie)
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
-        //scope.cancel()
+
         _binding = null
     }
 

@@ -6,6 +6,7 @@ import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.databinding.FragmentMoviesDetailsBinding
 import an.maguste.android.navier.mvvm.FragmentMoviesDetailsVM
 import an.maguste.android.navier.mvvm.FragmentMoviesListVM
+import an.maguste.android.navier.mvvm.MoviesDetailViewModelFactory
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,12 +19,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
 class FragmentMoviesDetails : Fragment() {
-
+/*
     private val viewModel: FragmentMoviesDetailsVM by lazy {
         ViewModelProvider(this).get(FragmentMoviesDetailsVM::class.java)
-    }
+    }*/
 
-    private var listener: ChangeFragment? = null
+    private lateinit var viewModel: FragmentMoviesDetailsVM
+    //private var listener: ChangeFragment? = null
 
     private var _binding: FragmentMoviesDetailsBinding? = null
     private val binding get() = _binding!!
@@ -31,6 +33,13 @@ class FragmentMoviesDetails : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = FragmentMoviesDetailsBinding.inflate(inflater, container, false)
+
+        // view model
+        val movie = FragmentMoviesDetailsArgs.fromBundle(requireArguments()).selectedMovie
+        val viewModelFactory = MoviesDetailViewModelFactory(movie)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(FragmentMoviesDetailsVM::class.java)
+
         return binding.root
     }
 
@@ -40,13 +49,15 @@ class FragmentMoviesDetails : Fragment() {
         binding.recyclerView.adapter = ActorAdapter()
         binding.recyclerView.hasFixedSize()
 
-        binding.toolbar.setOnClickListener {
-            listener?.toMoviesList()
-        }
+        setObservers()
 
-        // parcelize Movie
-        val movie: Movie? = requireArguments().getParcelable(Movie::class.java.simpleName)
-        movie?.let{ setMovieData(it) }
+        viewModel.setMovie()
+    }
+
+    private fun setObservers(){
+        viewModel.selectedMovie.observe(viewLifecycleOwner, {
+            setMovieData(it)
+        })
     }
 
     // set data on fragment
@@ -79,17 +90,6 @@ class FragmentMoviesDetails : Fragment() {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        // catch listener
-        listener = context as? ChangeFragment
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -100,5 +100,4 @@ class FragmentMoviesDetails : Fragment() {
             .placeholder(R.drawable.empty_photo)
             .fallback(R.drawable.empty_photo)
     }
-
 }
