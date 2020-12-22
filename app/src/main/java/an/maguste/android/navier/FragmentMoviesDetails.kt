@@ -1,13 +1,10 @@
 package an.maguste.android.navier
 
 import an.maguste.android.navier.adapters.ActorAdapter
-import an.maguste.android.navier.data.ChangeFragment
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.databinding.FragmentMoviesDetailsBinding
 import an.maguste.android.navier.mvvm.FragmentMoviesDetailsVM
-import an.maguste.android.navier.mvvm.FragmentMoviesListVM
 import an.maguste.android.navier.mvvm.MoviesDetailViewModelFactory
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,14 +16,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
 class FragmentMoviesDetails : Fragment() {
-/*
-    private val viewModel: FragmentMoviesDetailsVM by lazy {
-        ViewModelProvider(this).get(FragmentMoviesDetailsVM::class.java)
-    }*/
 
+    // view model
     private lateinit var viewModel: FragmentMoviesDetailsVM
-    //private var listener: ChangeFragment? = null
 
+    // ViewBinding
     private var _binding: FragmentMoviesDetailsBinding? = null
     private val binding get() = _binding!!
 
@@ -48,6 +42,10 @@ class FragmentMoviesDetails : Fragment() {
 
         binding.recyclerView.adapter = ActorAdapter()
         binding.recyclerView.hasFixedSize()
+
+        binding.toolbar.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
 
         setObservers()
 

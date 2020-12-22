@@ -2,12 +2,10 @@ package an.maguste.android.navier
 
 import an.maguste.android.navier.adapters.MovieAdapter
 import an.maguste.android.navier.adapters.OnMovieClickListener
-import an.maguste.android.navier.data.ChangeFragment
 import an.maguste.android.navier.databinding.FragmentMoviesListBinding
 import an.maguste.android.navier.mvvm.FragmentMoviesListVM
 import an.maguste.android.navier.mvvm.MoviesListViewModelFactory
 import an.maguste.android.navier.mvvm.State
-import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,13 +19,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 
 class FragmentMoviesList : Fragment() {
 
-    /* private val viewModel: FragmentMoviesListVM by lazy {
-         ViewModelProvider(this).get(FragmentMoviesListVM::class.java)
-     }*/
+    // view model
     private lateinit var viewModel: FragmentMoviesListVM
 
-    //private var listenerFragment: ChangeFragment? = null
-
+    // ViewBinding
     private var _binding: FragmentMoviesListBinding? = null
     private val binding get() = _binding!!
 
@@ -103,7 +98,6 @@ class FragmentMoviesList : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
         _binding = null
     }
 
