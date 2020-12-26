@@ -3,7 +3,7 @@ package an.maguste.android.navier
 import an.maguste.android.navier.adapters.ActorAdapter
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.databinding.FragmentMoviesDetailsBinding
-import an.maguste.android.navier.mvvm.FragmentMoviesDetailsVM
+import an.maguste.android.navier.mvvm.MoviesDetailsViewModel
 import an.maguste.android.navier.mvvm.MoviesDetailViewModelFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,7 +18,7 @@ import com.bumptech.glide.request.RequestOptions
 class FragmentMoviesDetails : Fragment() {
 
     // view model
-    private lateinit var viewModel: FragmentMoviesDetailsVM
+    private lateinit var viewModel: MoviesDetailsViewModel
 
     // ViewBinding
     private var _binding: FragmentMoviesDetailsBinding? = null
@@ -32,7 +32,7 @@ class FragmentMoviesDetails : Fragment() {
         val movie = FragmentMoviesDetailsArgs.fromBundle(requireArguments()).selectedMovie
         val viewModelFactory = MoviesDetailViewModelFactory(movie)
         viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(FragmentMoviesDetailsVM::class.java)
+            .get(MoviesDetailsViewModel::class.java)
 
         return binding.root
     }

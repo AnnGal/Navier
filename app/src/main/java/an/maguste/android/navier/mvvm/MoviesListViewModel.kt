@@ -11,8 +11,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 import java.lang.Exception
 
-class FragmentMoviesListVM(private val context: Context,
-                           private val dispatcher: CoroutineDispatcher) : ViewModel() {
+class MoviesListViewModel(private val context: Context,
+                          private val dispatcher: CoroutineDispatcher) : ViewModel() {
 
     private val _state = MutableLiveData<State>(State.Init())
     val state: LiveData<State> get() = _state
@@ -39,7 +39,7 @@ class FragmentMoviesListVM(private val context: Context,
                 _state.value = State.Success()
             } catch (e: Exception){
                 _state.value = State.Error()
-                Log.e(FragmentMoviesListVM::class.java.simpleName,"Error grab movies data ${e.message}")
+                Log.e(MoviesListViewModel::class.java.simpleName,"Error grab movies data ${e.message}")
             }
         }
     }

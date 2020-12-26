@@ -3,7 +3,7 @@ package an.maguste.android.navier
 import an.maguste.android.navier.adapters.MovieAdapter
 import an.maguste.android.navier.adapters.OnMovieClickListener
 import an.maguste.android.navier.databinding.FragmentMoviesListBinding
-import an.maguste.android.navier.mvvm.FragmentMoviesListVM
+import an.maguste.android.navier.mvvm.MoviesListViewModel
 import an.maguste.android.navier.mvvm.MoviesListViewModelFactory
 import an.maguste.android.navier.mvvm.State
 import android.content.res.Configuration
@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 class FragmentMoviesList : Fragment() {
 
     // view model
-    private lateinit var viewModel: FragmentMoviesListVM
+    private lateinit var viewModel: MoviesListViewModel
 
     // ViewBinding
     private var _binding: FragmentMoviesListBinding? = null
@@ -34,7 +34,7 @@ class FragmentMoviesList : Fragment() {
 
         // create view model
         val viewModelFactory = MoviesListViewModelFactory(requireContext())
-        viewModel = ViewModelProvider(this, viewModelFactory).get(FragmentMoviesListVM::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MoviesListViewModel::class.java)
 
         return binding.root
     }

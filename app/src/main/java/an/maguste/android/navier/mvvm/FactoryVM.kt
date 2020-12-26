@@ -14,7 +14,7 @@ class MoviesListViewModelFactory(private val context: Context,
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = when (modelClass) {
-        FragmentMoviesListVM::class.java -> FragmentMoviesListVM(context = context,
+        MoviesListViewModel::class.java -> MoviesListViewModel(context = context,
                 dispatcher = dispatcher)
         else -> throw IllegalArgumentException("$modelClass is not registered ViewModel")
     } as T
@@ -26,7 +26,7 @@ class MoviesDetailViewModelFactory(private val movie: Movie) : ViewModelProvider
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = when (modelClass) {
-        FragmentMoviesDetailsVM::class.java -> FragmentMoviesDetailsVM(movie,)
+        MoviesDetailsViewModel::class.java -> MoviesDetailsViewModel(movie,)
         else -> throw IllegalArgumentException("$modelClass is not registered ViewModel")
     } as T
 
