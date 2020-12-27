@@ -28,6 +28,7 @@ class FragmentMoviesDetails : Fragment() {
 
         // view model
         val movie = FragmentMoviesDetailsArgs.fromBundle(requireArguments()).selectedMovie
+
         val viewModelFactory = MoviesDetailViewModelFactory(movie)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(MoviesDetailsViewModel::class.java)

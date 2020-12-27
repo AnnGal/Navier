@@ -12,31 +12,23 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 import java.lang.Exception
 
-class MoviesListViewModel(private val context: Context,
-                          private val dispatcher: CoroutineDispatcher) : ViewModel() {
+class MoviesListViewModel(private val context: Context) : ViewModel() {
 
     private val _state = MutableLiveData<State>(State.Init())
     val state: LiveData<State> get() = _state
 
-    private val _moviesData = MutableLiveData<List<Movie>>()
-    val moviesData: LiveData<List<Movie>> get() = _moviesData
+    private val _movies = MutableLiveData<List<Movie>>()
+    val movies: LiveData<List<Movie>> get() = _movies
 
-    private val _selectedMovie = MutableLiveData<Movie>()
-    val selectedMovie: LiveData<Movie> get() = _selectedMovie
-
-    init {
-        parseMovieAsset()
-    }
-
-    /** get movie list from assets */
-    private fun parseMovieAsset() {
+     /** get movie list from assets */
+    fun loadMovies() {
         viewModelScope.launch {
             try {
                 _state.value = State.Loading()
                 delay(DELAY)
                 // throw Exception("Sudden error") // for test Exception
-                val movies = loadMovies(context, dispatcher)
-                _moviesData.value = movies
+                val movies = loadMovies(context)
+                _movies.value = movies
                 _state.value = State.Success()
             } catch (e: Exception){
                 _state.value = State.Error()
@@ -45,17 +37,7 @@ class MoviesListViewModel(private val context: Context,
         }
     }
 
-    /** on MovieCard click */
-    fun selectMovie(movie: Movie){
-        _selectedMovie.value = movie
-    }
-
-    fun selectMovieShown(){
-        _selectedMovie.value = null
-    }
-
     companion object{
         const val DELAY: Long = 1_000
     }
-
 }

@@ -1,5 +1,6 @@
 package an.maguste.android.navier.movieslist
 
+import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.databinding.FragmentMoviesListBinding
 import an.maguste.android.navier.mvvm.State
 import android.content.res.Configuration
@@ -8,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 class FragmentMoviesList : Fragment() {
 
     // view model
-    private lateinit var viewModel: MoviesListViewModel
+    private val viewModel: MoviesListViewModel by viewModels { MoviesListViewModelFactory() }
 
     // ViewBinding
     private var _binding: FragmentMoviesListBinding? = null
@@ -28,10 +29,6 @@ class FragmentMoviesList : Fragment() {
     ): View {
         _binding = FragmentMoviesListBinding.inflate(inflater, container, false)
 
-        // create view model
-        val viewModelFactory = MoviesListViewModelFactory(requireContext())
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MoviesListViewModel::class.java)
-
         return binding.root
     }
 
@@ -39,20 +36,29 @@ class FragmentMoviesList : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // set recycler view
-        binding.recyclerView.adapter = MovieAdapter(OnMovieClickListener {
-            viewModel.selectMovie(it)
+        binding.recyclerView.adapter = MovieAdapter(OnMovieClickListener { movie ->
+            //viewModel.selectMovie(it)
+            openMoviesDetailFragment(movie)
         })
         binding.recyclerView.layoutManager = GridLayoutManager(context, getSpanCount())
 
         // watch for LiveData
         setObservers()
+
+        if (viewModel.movies.value.isNullOrEmpty()){   // to avoid unnecessary request, when we came back from the detail screen
+            viewModel.loadMovies()
+        }
     }
 
+    /** on card click reaction */
+    private fun openMoviesDetailFragment(movie: Movie) {
+        this.findNavController().navigate(FragmentMoviesListDirections.actionToMoviesDetails(movie))
+    }
 
     /** observe ViewModel data */
     private fun setObservers() {
         // observe movies data
-        viewModel.moviesData.observe(viewLifecycleOwner, { movieList ->
+        viewModel.movies.observe(viewLifecycleOwner, { movieList ->
             (binding.recyclerView.adapter as MovieAdapter).apply {
                 bindMovie(movieList)
             }
@@ -73,18 +79,6 @@ class FragmentMoviesList : Fragment() {
                     binding.progressBar.visibility = View.INVISIBLE
                     binding.layoutLostData.visibility = View.VISIBLE
                 }
-            }
-        })
-
-        // observe movie selected
-        viewModel.selectedMovie.observe(viewLifecycleOwner,  {
-            if ( null != it ) {
-                this.findNavController().navigate(
-                    FragmentMoviesListDirections.actionToMoviesDetails(
-                        it
-                    )
-                )
-                viewModel.selectMovieShown()
             }
         })
     }

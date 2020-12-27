@@ -8,7 +8,7 @@ class MoviesDetailViewModelFactory(private val movie: Movie) : ViewModelProvider
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = when (modelClass) {
-        MoviesDetailsViewModel::class.java -> MoviesDetailsViewModel(movie,)
+        MoviesDetailsViewModel::class.java -> MoviesDetailsViewModel(movie)
         else -> throw IllegalArgumentException("$modelClass is not registered ViewModel")
     } as T
 
