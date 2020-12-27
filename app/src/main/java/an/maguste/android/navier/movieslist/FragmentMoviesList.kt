@@ -1,10 +1,6 @@
-package an.maguste.android.navier
+package an.maguste.android.navier.movieslist
 
-import an.maguste.android.navier.adapters.MovieAdapter
-import an.maguste.android.navier.adapters.OnMovieClickListener
 import an.maguste.android.navier.databinding.FragmentMoviesListBinding
-import an.maguste.android.navier.mvvm.MoviesListViewModel
-import an.maguste.android.navier.mvvm.MoviesListViewModelFactory
 import an.maguste.android.navier.mvvm.State
 import android.content.res.Configuration
 import android.os.Bundle
@@ -83,7 +79,11 @@ class FragmentMoviesList : Fragment() {
         // observe movie selected
         viewModel.selectedMovie.observe(viewLifecycleOwner,  {
             if ( null != it ) {
-                this.findNavController().navigate(FragmentMoviesListDirections.actionToMoviesDetails(it))
+                this.findNavController().navigate(
+                    FragmentMoviesListDirections.actionToMoviesDetails(
+                        it
+                    )
+                )
                 viewModel.selectMovieShown()
             }
         })

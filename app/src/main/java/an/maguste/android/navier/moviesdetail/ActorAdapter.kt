@@ -1,4 +1,4 @@
-package an.maguste.android.navier.adapters
+package an.maguste.android.navier.moviesdetail
 
 import an.maguste.android.navier.R
 import an.maguste.android.navier.data.Actor

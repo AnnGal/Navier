@@ -1,7 +1,8 @@
-package an.maguste.android.navier.mvvm
+package an.maguste.android.navier.movieslist
 
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.data.loadMovies
+import an.maguste.android.navier.mvvm.State
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData

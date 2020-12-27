@@ -58,8 +58,8 @@
             android:orientation="vertical"
             android:visibility="gone"
             android:paddingTop="@dimen/state_message_offset"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView

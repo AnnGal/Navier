@@ -1,4 +1,4 @@
-package an.maguste.android.navier.mvvm
+package an.maguste.android.navier.moviesdetail
 
 import an.maguste.android.navier.data.Movie
 import androidx.lifecycle.LiveData

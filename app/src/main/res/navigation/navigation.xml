@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentMoviesList"
-        android:name="an.maguste.android.navier.FragmentMoviesList"
+        android:name="an.maguste.android.navier.movieslist.FragmentMoviesList"
         tools:layout="@layout/fragment_movies_list">
         <action
             android:id="@+id/action_toMoviesDetails"
@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/fragmentMoviesDetails"
-        android:name="an.maguste.android.navier.FragmentMoviesDetails"
+        android:name="an.maguste.android.navier.moviesdetail.FragmentMoviesDetails"
         tools:layout="@layout/fragment_movies_details">
         <argument
             android:name="selectedMovie"

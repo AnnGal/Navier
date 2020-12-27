@@ -1,10 +1,8 @@
-package an.maguste.android.navier
+package an.maguste.android.navier.moviesdetail
 
-import an.maguste.android.navier.adapters.ActorAdapter
+import an.maguste.android.navier.R
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.databinding.FragmentMoviesDetailsBinding
-import an.maguste.android.navier.mvvm.MoviesDetailsViewModel
-import an.maguste.android.navier.mvvm.MoviesDetailViewModelFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
