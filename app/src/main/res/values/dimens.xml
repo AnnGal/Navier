@@ -14,4 +14,6 @@
     <dimen name="size_icon">16dp</dimen>
     <dimen name="size_movie_poster">160dp</dimen>
     <dimen name="size_movie_background_height">300dp</dimen>
+    <dimen name="error_message_size">200dp</dimen>
+    <dimen name="state_message_offset">128dp</dimen>
 </resources>

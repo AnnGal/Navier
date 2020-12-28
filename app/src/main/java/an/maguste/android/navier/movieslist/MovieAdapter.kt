@@ -1,4 +1,4 @@
-package an.maguste.android.navier.adapters
+package an.maguste.android.navier.movieslist
 
 import an.maguste.android.navier.R
 import an.maguste.android.navier.data.Movie
@@ -58,6 +58,6 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 }
 
-interface OnMovieClickListener{
-    fun onClick(movie: Movie)
+class OnMovieClickListener(val clickListener: (movie: Movie) -> Unit) {
+    fun onClick(movie: Movie) = clickListener(movie)
 }
