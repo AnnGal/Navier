@@ -30,7 +30,7 @@ data class Movie(
         @SerialName("genre_ids")
         val genreIds: List<Int>? = listOf(),
         @SerialName("genres")
-        val genres: List<Genre>? = listOf(),
+        var genres: List<Genre>? = listOf(),
         @SerialName("actors")
         val actors: List<Actor>? = listOf(),
         @SerialName("like")

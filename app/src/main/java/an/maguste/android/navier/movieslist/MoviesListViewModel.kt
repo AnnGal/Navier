@@ -42,26 +42,25 @@ class MoviesListViewModel(private val context: Context) : ViewModel() {
         }
     }
 
-    fun loadGenres(){
-        viewModelScope.launch {
-            Log.d("RetrofitTry", "try to load genres")
-            val resultRequest = MovieDbApiService.retrofitService.getGenres()
-            //val resultRequest = movieApi.getGenresList()
 
-            Log.d("RetrofitTry", "finish: ${resultRequest.genres.size}")
-        }
-    }
 
     fun loadMovies(){
         viewModelScope.launch {
             try {
                 _state.value = State.Loading
-                delay(DELAY)
-
                 // throw Exception("Sudden error") // for test Exception
-                val resultRequest = MovieDbApiService.retrofitService.getMovies()
+                val genres = MovieDbApiService.retrofitService.getGenres()
+                val movie = MovieDbApiService.retrofitService.getMovies()
 
-                _movies.value = resultRequest.results
+                val genresMap = genres.genres.associateBy { it.id }
+
+                for (mov in movie.results!!){
+                    mov.genres = mov.genreIds?.map {
+                        genresMap[it] ?: throw IllegalArgumentException("Genre not found")
+                    }
+                }
+
+                _movies.value = movie.results
                 _state.value = State.Success
             } catch (e: Exception){
                 _state.value = State.Error

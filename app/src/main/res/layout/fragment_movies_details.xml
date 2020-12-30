@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/img_avengers_background" />
+            tools:srcCompat="@drawable/img_avengers_background" />
 
         <View
             android:layout_width="0dp"
@@ -50,11 +50,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/layout_gap"
             android:layout_marginBottom="@dimen/view_big_gap"
-            android:text="@string/age_rating_default"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/title"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="13+" />
+            tools:text="@string/age_rating_default" />
 
         <TextView
             android:id="@+id/title"
@@ -63,7 +62,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/layout_gap"
             android:layout_marginEnd="@dimen/layout_gap"
-            android:text="@string/movie_title"
             app:layout_constraintBottom_toBottomOf="@+id/poster"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -84,13 +82,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/layout_gap"
             android:layout_marginEnd="@dimen/layout_gap"
-            android:text="@string/movie_genres"
             android:textColor="@color/accent"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            tools:text="@string/movie_genres" />
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -101,10 +99,10 @@
             android:layout_marginTop="8dp"
             android:isIndicator="true"
             android:numStars="5"
-            android:rating="4"
             android:theme="@style/RatingBarStyle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/genres" />
+            app:layout_constraintTop_toBottomOf="@+id/genres"
+            tools:rating="4" />
 
         <TextView
             android:id="@+id/reviews"
@@ -114,11 +112,10 @@
             android:layout_marginTop="@dimen/view_medium_gap"
             android:layout_marginBottom="@dimen/view_medium_gap"
             android:paddingStart="12dp"
-            android:text="@string/movie_reviews"
             app:layout_constraintStart_toEndOf="@+id/ratingBar"
             app:layout_constraintTop_toBottomOf="@+id/genres"
             tools:ignore="RtlSymmetry"
-            tools:text="125 Reviews" />
+            tools:text="@string/movie_reviews" />
 
         <TextView
             android:id="@+id/tvStoryline"
@@ -141,10 +138,10 @@
             android:lineSpacingExtra="4dp"
             android:paddingTop="@dimen/view_medium_gap"
             android:paddingBottom="@dimen/view_medium_gap"
-            android:text="@string/movie_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvStoryline" />
+            app:layout_constraintTop_toBottomOf="@+id/tvStoryline"
+            tools:text="@string/movie_description" />
 
         <TextView
             android:id="@+id/cast"
@@ -172,6 +169,50 @@
             tools:itemCount="4"
             tools:listitem="@layout/view_holder_actor" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:paddingTop="@dimen/state_message_offset"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <LinearLayout
+            android:id="@+id/layoutLostData"
+            android:layout_width="@dimen/error_message_size"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/state_message_offset"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/imageLostData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/desc_img_no_data"
+                android:src="@drawable/ic_no_asset" />
+
+            <TextView
+                android:id="@+id/textLostData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/desc_img_no_data"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:paddingTop="24dp"
+                android:text="@string/message_lost_data"
+                android:textColor="@color/text_regular"
+                android:textSize="20sp" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

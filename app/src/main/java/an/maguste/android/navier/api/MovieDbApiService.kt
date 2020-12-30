@@ -1,6 +1,7 @@
 package an.maguste.android.navier.api
 
 import an.maguste.android.navier.data.GenresJson
+import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.data.MoviesJson
 import android.util.Log
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -12,7 +13,7 @@ import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.http.GET
-import retrofit2.http.Headers
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 private const val BASE_URL = "https://api.themoviedb.org/3/"
@@ -117,8 +118,11 @@ interface MovieApiService {
 
     @GET("movie/popular")
     suspend fun getMovies(@Query(API_KEY_HEADER) key: String = apiKey, @Query("page") page: Int = 1): MoviesJson
-    //https://api.themoviedb.org/3/movie/popular?api_key=c589a9f6e9e9d8b8b1a3612f1b750053&language=en-US&page=1
+    // example: https://api.themoviedb.org/3/movie/popular?api_key=<<api_key>>&language=en-US&page=1
 
+    @GET("movie/{movie_id}")
+    suspend fun getMovie(@Path("movie_id") movieId: Int, @Query(API_KEY_HEADER) key: String = apiKey): Movie
+    // example: https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>
 }
 
 object MovieDbApiService {
