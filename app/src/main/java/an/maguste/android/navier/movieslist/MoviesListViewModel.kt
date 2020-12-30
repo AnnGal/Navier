@@ -1,7 +1,8 @@
 package an.maguste.android.navier.movieslist
 
-import an.maguste.android.navier.api.MovieApiService
+
 import an.maguste.android.navier.api.MovieDbApiService
+//import an.maguste.android.navier.api.RetrofitModule.movieApi
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.data.loadMovies
 import an.maguste.android.navier.data.State
@@ -12,6 +13,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
+import org.jetbrains.annotations.TestOnly
 import java.lang.Exception
 
 class MoviesListViewModel(private val context: Context) : ViewModel() {
@@ -23,7 +25,8 @@ class MoviesListViewModel(private val context: Context) : ViewModel() {
     val movies: LiveData<List<Movie>> get() = _movies
 
      /** get movie list from assets */
-    fun loadMovies() {
+     @TestOnly
+    fun loadMoviesFromAssets() {
         viewModelScope.launch {
             try {
                 _state.value = State.Loading
@@ -42,8 +45,28 @@ class MoviesListViewModel(private val context: Context) : ViewModel() {
     fun loadGenres(){
         viewModelScope.launch {
             Log.d("RetrofitTry", "try to load genres")
-            val resultRequest = MovieDbApiService.retrofitService.getGenresList()
+            val resultRequest = MovieDbApiService.retrofitService.getGenres()
+            //val resultRequest = movieApi.getGenresList()
+
             Log.d("RetrofitTry", "finish: ${resultRequest.genres.size}")
+        }
+    }
+
+    fun loadMovies(){
+        viewModelScope.launch {
+            try {
+                _state.value = State.Loading
+                delay(DELAY)
+
+                // throw Exception("Sudden error") // for test Exception
+                val resultRequest = MovieDbApiService.retrofitService.getMovies()
+
+                _movies.value = resultRequest.results
+                _state.value = State.Success
+            } catch (e: Exception){
+                _state.value = State.Error
+                Log.e(MoviesListViewModel::class.java.simpleName,"Error grab movies data ${e.message}")
+            }
         }
     }
 

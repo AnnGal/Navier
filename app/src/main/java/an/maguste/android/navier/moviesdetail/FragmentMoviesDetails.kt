@@ -60,7 +60,8 @@ class FragmentMoviesDetails : Fragment() {
     // set data on fragment
     private fun setMovieData(movie: Movie) {
         Glide.with(requireContext())
-            .load(movie.backdrop)
+            //.load(movie.backdrop)
+            .load(movie.backdropLink)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .apply(imageOption)
             .into(binding.poster)
@@ -74,16 +75,17 @@ class FragmentMoviesDetails : Fragment() {
 
             // set movie data
             binding.title.text = title
-            binding.genres.text = genres.joinToString(", ") { it.name }
+            binding.genres.text = genres?.joinToString(", ") { it.name }
             binding.ratingBar.rating = ratings / 2
             binding.reviews.text = resources.getQuantityString(R.plurals.review, reviews, reviews)
             binding.storylineText.text = overview
 
             // check actors list not empty
-            when {
+            //todo fix
+        /*    when {
                 actors.isNotEmpty() -> (binding.recyclerView.adapter as? ActorAdapter)?.bindActor(actors)
                 else -> binding.cast.visibility = View.INVISIBLE
-            }
+            }*/
         }
     }
 
