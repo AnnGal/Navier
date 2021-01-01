@@ -32,7 +32,6 @@ class FragmentMoviesDetails : Fragment() {
         movieId = FragmentMoviesDetailsArgs.fromBundle(requireArguments()).movieId
 
         val viewModelFactory = MoviesDetailViewModelFactory()
-
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(MoviesDetailsViewModel::class.java)
 
@@ -55,6 +54,7 @@ class FragmentMoviesDetails : Fragment() {
     }
 
     private fun setObservers(){
+        // observe movie information
         viewModel.selectedMovie.observe(viewLifecycleOwner, {
             setMovieData(it)
         })
@@ -96,13 +96,20 @@ class FragmentMoviesDetails : Fragment() {
             // set movie data
             binding.title.text = title
             binding.genres.text = genres?.joinToString(", ") { it.name }
-            binding.ratingBar.rating = ratings / 2
+            with (binding.ratingBar) {
+                visibility = View.VISIBLE
+                rating = ratings / 2
+            }
             binding.reviews.text = resources.getQuantityString(R.plurals.review, reviews, reviews)
+            binding.storylineLabel.visibility = View.VISIBLE
             binding.storylineText.text = overview
 
             // check actors list not empty
             when (actors?.isNotEmpty()) {
-                true -> (binding.recyclerView.adapter as? ActorAdapter)?.bindActor(actors)
+                true -> {
+                    binding.cast.visibility = View.VISIBLE
+                    (binding.recyclerView.adapter as? ActorAdapter)?.bindActor(actors)
+                }
                 else -> binding.cast.visibility = View.INVISIBLE
             }
         }

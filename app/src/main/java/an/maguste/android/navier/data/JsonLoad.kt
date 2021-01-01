@@ -1,7 +1,6 @@
 package an.maguste.android.navier.data
 
 import android.content.Context
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerialName

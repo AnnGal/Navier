@@ -39,26 +39,22 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(movie: Movie) {
         Glide.with(itemView.context)
             //.load(movie.poster)
-            .load(movie.posterLink ?: movie.backdropLink)
+            .load(movie.posterLink)
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .apply(RequestOptions().centerCrop())
             .into(binding.poster)
 
-        when {
-            movie.adult -> binding.ageRating.text = itemView.resources.getString(R.string.age_rating_default)
-            else -> binding.ageRating.visibility = View.INVISIBLE
+        when (movie.adult){
+            true -> binding.ageRating.text = itemView.resources.getString(R.string.age_rating_default)
+            false -> binding.ageRating.visibility = View.INVISIBLE
         }
 
-        //todo hide elements before load
-        //relocate consts
-
-        //todo fix
         binding.like.setImageResource(if (movie.like == true) R.drawable.ic_like else R.drawable.ic_like_empty)
         binding.genres.text = movie.genres?.joinToString(", ") { it.name }
         binding.ratingBar.rating =  movie.ratings / 2
         binding.reviews.text = itemView.resources.getQuantityString(R.plurals.review, movie.reviews, movie.reviews)
         binding.title.text = movie.title
-        binding.duration.text = itemView.resources.getString(R.string.duration_unit, movie.runtime)
+        movie.runtime?.let { binding.duration.text = itemView.resources.getString(R.string.duration_unit, movie.runtime) }
     }
 
 }

@@ -36,7 +36,6 @@ class FragmentMoviesList : Fragment() {
 
         // set recycler view
         binding.recyclerView.adapter = MovieAdapter(OnMovieClickListener { movie ->
-            //viewModel.selectMovie(it)
             openMoviesDetailFragment(movie)
         })
         binding.recyclerView.layoutManager = GridLayoutManager(context, getSpanCount())
@@ -45,14 +44,8 @@ class FragmentMoviesList : Fragment() {
         setObservers()
 
         if (viewModel.movies.value.isNullOrEmpty()){   // to avoid unnecessary request, when we came back from the detail screen
-            //viewModel.loadMovies()
             viewModel.loadMovies()
         }
-
-        /*binding.toolbar.setOnClickListener {
-            //viewModel.loadGenres()
-            viewModel.loadMoviesApi()
-        }*/
     }
 
     /** on card click reaction */

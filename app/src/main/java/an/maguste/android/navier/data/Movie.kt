@@ -1,8 +1,8 @@
 package an.maguste.android.navier.data
 
+import an.maguste.android.navier.BuildConfig
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import kotlinx.serialization.Required
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -41,9 +41,9 @@ data class Movie(
         val tagline: String = ""
 ) : Parcelable {
         val backdropLink: String
-                get() = "https://image.tmdb.org/t/p/w500/" + backdrop
+                get() = BuildConfig.IMAGE_URL + backdrop
         val posterLink: String
-                get() = "https://image.tmdb.org/t/p/w500/" + poster
+                get() = BuildConfig.IMAGE_URL + poster
 }
 
 @Serializable
