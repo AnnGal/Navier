@@ -1,6 +1,7 @@
 package an.maguste.android.navier.moviesdetail
 
-import an.maguste.android.navier.api.MovieApiService
+import an.maguste.android.navier.api.MovieApi
+import an.maguste.android.navier.api.RetrofitService
 import an.maguste.android.navier.api.convertFromJsonToActor
 import an.maguste.android.navier.data.Actor
 import an.maguste.android.navier.data.Movie
@@ -12,7 +13,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class MoviesDetailsViewModel : ViewModel() {
+class MoviesDetailsViewModel(private val apiService: MovieApi) : ViewModel() {
 
     private val _movie = MutableLiveData<Movie>()
     val movie: LiveData<Movie> get() = _movie
@@ -29,12 +30,12 @@ class MoviesDetailsViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 // get actors
-                val resultRequest = MovieApiService.retrofitService.getActors(movieId = movieId)
-
+                val resultRequest = apiService.getActors(movieId = movieId)
                 // convert actors data
                 val actors = resultRequest.actors?.let { convertFromJsonToActor(it) }
 
                 _actors.value = actors
+
             } catch (e: Exception) {
                 Log.e(
                     MoviesDetailsViewModel::class.java.simpleName,
@@ -43,6 +44,4 @@ class MoviesDetailsViewModel : ViewModel() {
             }
         }
     }
-
-
 }
