@@ -15,24 +15,21 @@ import java.lang.Exception
 
 class MoviesDetailsViewModel : ViewModel() {
 
-    private val _selectedMovie = MutableLiveData<Movie>()
-    val selectedMovie: LiveData<Movie> get() = _selectedMovie
+    private val _movie = MutableLiveData<Movie>()
+    val movie: LiveData<Movie> get() = _movie
 
-    private val _state = MutableLiveData<State>(State.Init)
-    val state: LiveData<State> get() = _state
+    fun setMovie(movie: Movie) {
+        _movie.value = movie
+        getActors(movie.id)
+    }
 
-    fun loadMovie(movieId: Int){
+    private fun getActors(movieId: Int) {
         viewModelScope.launch {
             try {
-                _state.value = State.Loading
-                delay(MoviesListViewModel.DELAY)
-
                 val resultRequest = MovieApiService.retrofitService.getMovie(movieId = movieId)
 
-                _selectedMovie.value = resultRequest
-                _state.value = State.Success
+                _movie.value = resultRequest
             } catch (e: Exception){
-                _state.value = State.Error
                 Log.e(MoviesListViewModel::class.java.simpleName,"Error grab movies data ${e.message}")
             }
         }

@@ -50,7 +50,7 @@ class FragmentMoviesList : Fragment() {
 
     /** on card click reaction */
     private fun openMoviesDetailFragment(movie: Movie) {
-        this.findNavController().navigate(FragmentMoviesListDirections.actionToMoviesDetails(movie.id))
+        this.findNavController().navigate(FragmentMoviesListDirections.actionToMoviesDetails(movie))
     }
 
     /** observe ViewModel data */

@@ -23,13 +23,13 @@ class FragmentMoviesDetails : Fragment() {
     private var _binding: FragmentMoviesDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private var movieId: Int = 0
+    private var movie: Movie? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = FragmentMoviesDetailsBinding.inflate(inflater, container, false)
 
-        movieId = FragmentMoviesDetailsArgs.fromBundle(requireArguments()).movieId
+        movie = FragmentMoviesDetailsArgs.fromBundle(requireArguments()).selectedMovie
 
         val viewModelFactory = MoviesDetailViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory)
@@ -50,41 +50,28 @@ class FragmentMoviesDetails : Fragment() {
 
         setObservers()
 
-        viewModel.loadMovie(movieId)
+        movie?.let {
+            viewModel.setMovie(movie!!)
+        }
     }
 
     private fun setObservers(){
         // observe movie information
-        viewModel.selectedMovie.observe(viewLifecycleOwner, {
+        viewModel.movie.observe(viewLifecycleOwner, {
             setMovieData(it)
         })
 
-        // observe status
-        viewModel.state.observe(viewLifecycleOwner, { status ->
-            when (status) {
-                is State.Init, is State.Success -> {
-                    binding.progressBar.visibility = View.INVISIBLE
-                    binding.layoutLostData.visibility = View.INVISIBLE
-                }
-                is State.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.layoutLostData.visibility = View.INVISIBLE
-                }
-                is State.Error -> {
-                    binding.progressBar.visibility = View.INVISIBLE
-                    binding.layoutLostData.visibility = View.VISIBLE
-                }
-            }
-        })
     }
 
     // set data on fragment
     private fun setMovieData(movie: Movie) {
-        Glide.with(requireContext())
-            .load(movie.backdrop)
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-            .apply(imageOption)
-            .into(binding.poster)
+        movie.backdrop?.let {
+            Glide.with(requireContext())
+                .load(movie.backdrop)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .apply(imageOption)
+                .into(binding.poster)
+        }
 
         with(movie) {
             // remove age rating or put correct
@@ -101,8 +88,12 @@ class FragmentMoviesDetails : Fragment() {
                 rating = ratings / 2
             }
             binding.reviews.text = resources.getQuantityString(R.plurals.review, reviews, reviews)
-            binding.storylineLabel.visibility = View.VISIBLE
-            binding.storylineText.text = overview
+
+            overview?.let {
+                binding.storylineLabel.visibility = View.VISIBLE
+                binding.storylineText.text = overview
+            }
+
 
             // check actors list not empty
             when (actors.isNotEmpty()) {
