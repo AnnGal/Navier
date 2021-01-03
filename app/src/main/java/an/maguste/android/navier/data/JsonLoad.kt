@@ -97,10 +97,10 @@ internal fun parseMovies(
                 reviews = jsonMovie.reviews,
                 genres = jsonMovie.genreIds.map {
                     genresMap[it] ?: throw IllegalArgumentException("Genre not found")
-                },
+                }/*,
                 actors = jsonMovie.actors.map {
                     actorsMap[it] ?: throw IllegalArgumentException("Actor not found")
-                }
+                }*/
 
         )
     }

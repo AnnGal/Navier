@@ -17,9 +17,11 @@ class ActorAdapter : RecyclerView.Adapter<ActorViewHolder>() {
     private var actorsList = listOf<Actor>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder =
-            ActorViewHolder(LayoutInflater
-                    .from(parent.context)
-                    .inflate(R.layout.view_holder_actor, parent, false))
+        ActorViewHolder(
+            LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.view_holder_actor, parent, false)
+        )
 
     override fun onBindViewHolder(holder: ActorViewHolder, position: Int) {
         holder.bind(actorsList[position])
@@ -33,17 +35,19 @@ class ActorAdapter : RecyclerView.Adapter<ActorViewHolder>() {
     }
 }
 
-class ActorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+class ActorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val image = itemView.findViewById<ImageView>(R.id.ivActorsImage)
     private val name = itemView.findViewById<TextView>(R.id.tvActorFullName)
 
     fun bind(actor: Actor) {
-        Glide.with(itemView.context)
-            .load(actor.picture)
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-            .apply(imageOption)
-            .into(image)
+        actor.picture?.let {
+            Glide.with(itemView.context)
+                .load(actor.picture)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .apply(imageOption)
+                .into(image)
+        }
 
         name.text = actor.name
     }

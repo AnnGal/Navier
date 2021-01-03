@@ -15,6 +15,5 @@ data class Movie(
         val runtime: Int?,
         val reviews: Int,
         val genres: List<Genre>,
-        val actors: List<Actor> = listOf(),
         val like: Boolean = false
 ) : Parcelable

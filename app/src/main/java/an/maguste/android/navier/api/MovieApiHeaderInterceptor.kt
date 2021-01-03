@@ -14,10 +14,10 @@ class MovieApiHeaderInterceptor : Interceptor {
 
         val request = originalRequest.newBuilder()
             .url(originalHttpUrl)
-            .addHeader(Companion.API_KEY_HEADER, BuildConfig.API_KEY) // just in case
+            .addHeader(API_KEY_HEADER, BuildConfig.API_KEY) // just in case
             .build()
 
-        Log.d("RetrofitTry", "set header request= ${request.header(Companion.API_KEY_HEADER)}")
+        Log.d("RetrofitTry", "set header request= ${request.header(API_KEY_HEADER)}")
         return chain.proceed(request)
     }
 

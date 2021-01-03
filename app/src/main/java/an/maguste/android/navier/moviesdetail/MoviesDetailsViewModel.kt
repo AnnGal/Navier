@@ -1,15 +1,14 @@
 package an.maguste.android.navier.moviesdetail
 
 import an.maguste.android.navier.api.MovieApiService
+import an.maguste.android.navier.api.convertFromJsonToActor
+import an.maguste.android.navier.data.Actor
 import an.maguste.android.navier.data.Movie
-import an.maguste.android.navier.data.State
-import an.maguste.android.navier.movieslist.MoviesListViewModel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -17,6 +16,9 @@ class MoviesDetailsViewModel : ViewModel() {
 
     private val _movie = MutableLiveData<Movie>()
     val movie: LiveData<Movie> get() = _movie
+
+    private val _actors = MutableLiveData<List<Actor>>()
+    val actors: LiveData<List<Actor>> get() = _actors
 
     fun setMovie(movie: Movie) {
         _movie.value = movie
@@ -26,12 +28,21 @@ class MoviesDetailsViewModel : ViewModel() {
     private fun getActors(movieId: Int) {
         viewModelScope.launch {
             try {
-                val resultRequest = MovieApiService.retrofitService.getMovie(movieId = movieId)
+                // get actors
+                val resultRequest = MovieApiService.retrofitService.getActors(movieId = movieId)
 
-                _movie.value = resultRequest
-            } catch (e: Exception){
-                Log.e(MoviesListViewModel::class.java.simpleName,"Error grab movies data ${e.message}")
+                // convert actors data
+                val actors = resultRequest.actors?.let { convertFromJsonToActor(it) }
+
+                _actors.value = actors
+            } catch (e: Exception) {
+                Log.e(
+                    MoviesDetailsViewModel::class.java.simpleName,
+                    "Error grab actors data ${e.message}"
+                )
             }
         }
     }
+
+
 }

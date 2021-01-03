@@ -44,3 +44,21 @@ data class MovieDto(
         get() = poster?.let { BuildConfig.IMAGE_URL + poster }
 }
 
+@Serializable
+data class ActorsListDto(
+    @SerialName("cast")
+    val actors: List<ActorDto>? = null
+)
+
+@Serializable
+data class ActorDto(
+    @SerialName("id")
+    val id: Int,
+    @SerialName("name")
+    val name: String,
+    @SerialName("profile_path")
+    val image: String? = null
+) {
+    val imageLink: String?
+        get() = image?.let { BuildConfig.IMAGE_URL + image }
+}

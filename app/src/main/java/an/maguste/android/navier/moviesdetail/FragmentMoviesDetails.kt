@@ -1,8 +1,8 @@
 package an.maguste.android.navier.moviesdetail
 
 import an.maguste.android.navier.R
+import an.maguste.android.navier.data.Actor
 import an.maguste.android.navier.data.Movie
-import an.maguste.android.navier.data.State
 import an.maguste.android.navier.databinding.FragmentMoviesDetailsBinding
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -25,8 +25,10 @@ class FragmentMoviesDetails : Fragment() {
 
     private var movie: Movie? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentMoviesDetailsBinding.inflate(inflater, container, false)
 
         movie = FragmentMoviesDetailsArgs.fromBundle(requireArguments()).selectedMovie
@@ -55,10 +57,14 @@ class FragmentMoviesDetails : Fragment() {
         }
     }
 
-    private fun setObservers(){
+    private fun setObservers() {
         // observe movie information
         viewModel.movie.observe(viewLifecycleOwner, {
             setMovieData(it)
+        })
+
+        viewModel.actors.observe(viewLifecycleOwner, {
+            setActorsData(it)
         })
 
     }
@@ -76,33 +82,37 @@ class FragmentMoviesDetails : Fragment() {
         with(movie) {
             // remove age rating or put correct
             when {
-                adult -> { binding.ageRating.text = resources.getString(R.string.age_rating_default) }
-                else -> { binding.ageRating.visibility = View.INVISIBLE }
+                adult -> {
+                    binding.ageRating.text = resources.getString(R.string.age_rating_default)
+                }
+                else -> {
+                    binding.ageRating.visibility = View.INVISIBLE
+                }
             }
 
-            // set movie data
             binding.title.text = title
             binding.genres.text = genres.joinToString(", ") { it.name }
-            with (binding.ratingBar) {
+            with(binding.ratingBar) {
                 visibility = View.VISIBLE
                 rating = ratings / 2
             }
             binding.reviews.text = resources.getQuantityString(R.plurals.review, reviews, reviews)
 
+            // storyline
             overview?.let {
                 binding.storylineLabel.visibility = View.VISIBLE
                 binding.storylineText.text = overview
             }
+        }
+    }
 
-
-            // check actors list not empty
-            when (actors.isNotEmpty()) {
-                true -> {
-                    binding.cast.visibility = View.VISIBLE
-                    (binding.recyclerView.adapter as? ActorAdapter)?.bindActor(actors)
-                }
-                else -> binding.cast.visibility = View.INVISIBLE
+    private fun setActorsData(actors: List<Actor>) {
+        when (actors.isNotEmpty()) {
+            true -> {
+                binding.cast.visibility = View.VISIBLE
+                (binding.recyclerView.adapter as? ActorAdapter)?.bindActor(actors)
             }
+            else -> binding.cast.visibility = View.INVISIBLE
         }
     }
 
