@@ -8,10 +8,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Genre(
     val id: Int,
-    val name: String) : Parcelable
+    val name: String
+) : Parcelable
 
-@Serializable
-data class GenresJson(
-    val genres: List<Genre>
-)
 

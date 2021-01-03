@@ -1,6 +1,6 @@
 package an.maguste.android.navier.moviesdetail
 
-import an.maguste.android.navier.api.MovieDbApiService
+import an.maguste.android.navier.api.MovieApiService
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.data.State
 import an.maguste.android.navier.movieslist.MoviesListViewModel
@@ -27,7 +27,7 @@ class MoviesDetailsViewModel : ViewModel() {
                 _state.value = State.Loading
                 delay(MoviesListViewModel.DELAY)
 
-                val resultRequest = MovieDbApiService.retrofitService.getMovie(movieId = movieId)
+                val resultRequest = MovieApiService.retrofitService.getMovie(movieId = movieId)
 
                 _selectedMovie.value = resultRequest
                 _state.value = State.Success

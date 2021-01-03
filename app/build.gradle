@@ -18,22 +18,16 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "IMAGE_URL", "\"https://image.tmdb.org/t/p/w500/\""
+        buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
+        buildConfigField "String", "API_KEY", "\"c589a9f6e9e9d8b8b1a3612f1b750053\""
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    flavorDimensions "serverType"
-    productFlavors {
-        production {
-            dimension "serverType"
-            buildConfigField "String", "IMAGE_URL", "\"https://image.tmdb.org/t/p/w500/\""
-            buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
-            buildConfigField "String", "API_KEY", "\"c589a9f6e9e9d8b8b1a3612f1b750053\""
         }
     }
 

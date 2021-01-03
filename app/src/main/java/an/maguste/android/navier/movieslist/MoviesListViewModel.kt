@@ -1,6 +1,7 @@
 package an.maguste.android.navier.movieslist
 
-import an.maguste.android.navier.api.MovieDbApiService
+import an.maguste.android.navier.api.MovieApiService
+import an.maguste.android.navier.api.convertFromJsonToMovie
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.data.loadMovies
 import an.maguste.android.navier.data.State
@@ -48,18 +49,15 @@ class MoviesListViewModel(private val context: Context) : ViewModel() {
                 // throw Exception("Sudden error") // for test Exception
 
                 // get genres
-                val genres = MovieDbApiService.retrofitService.getGenres()
-                val genresMap = genres.genres.associateBy { it.id }
+                val genres = MovieApiService.retrofitService.getGenres()
 
                 // get movie
-                val movie = MovieDbApiService.retrofitService.getMovies()
-                for (mov in movie.results!!){
-                    mov.genres = mov.genreIds?.map {
-                        genresMap[it] ?: throw IllegalArgumentException("Genre not found")
-                    }
-                }
+                val moviesDto = MovieApiService.retrofitService.getMovies()
 
-                _movies.value = movie.results
+                // convert movies data
+                val movies = moviesDto.results?.let { convertFromJsonToMovie(it, genres.genres) }
+
+                _movies.value = movies
                 _state.value = State.Success
             } catch (e: Exception){
                 _state.value = State.Error
