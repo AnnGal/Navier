@@ -8,7 +8,6 @@ import okhttp3.Response
 class MovieApiHeaderInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        Log.d("RetrofitTry", "set header")
         val originalRequest = chain.request()
         val originalHttpUrl = originalRequest.url
 
@@ -17,7 +16,6 @@ class MovieApiHeaderInterceptor : Interceptor {
             .addHeader(API_KEY_HEADER, BuildConfig.API_KEY) // just in case
             .build()
 
-        Log.d("RetrofitTry", "set header request= ${request.header(API_KEY_HEADER)}")
         return chain.proceed(request)
     }
 

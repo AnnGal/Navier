@@ -4,7 +4,6 @@ import an.maguste.android.navier.api.MovieApi
 import an.maguste.android.navier.api.convertFromJsonToMovie
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.data.State
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

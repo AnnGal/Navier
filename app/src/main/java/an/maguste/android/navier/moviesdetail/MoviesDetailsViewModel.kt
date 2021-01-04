@@ -1,7 +1,6 @@
 package an.maguste.android.navier.moviesdetail
 
 import an.maguste.android.navier.api.MovieApi
-import an.maguste.android.navier.api.RetrofitService
 import an.maguste.android.navier.api.convertFromJsonToActor
 import an.maguste.android.navier.data.Actor
 import an.maguste.android.navier.data.Movie
