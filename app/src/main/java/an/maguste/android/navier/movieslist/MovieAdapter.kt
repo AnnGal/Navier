@@ -46,14 +46,14 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .apply(RequestOptions().centerCrop())
             .into(binding.poster)
 
-        when (movie.adult) {
-            true -> binding.ageRating.text =
-                itemView.resources.getString(R.string.age_rating_default)
-            false -> binding.ageRating.visibility = View.INVISIBLE
+        if (movie.adult) {
+            binding.ageRating.text = itemView.resources.getString(R.string.age_rating_default)
+        } else {
+            binding.ageRating.visibility = View.INVISIBLE
         }
 
         binding.like.setImageResource(if (movie.like) R.drawable.ic_like else R.drawable.ic_like_empty)
-        binding.genres.text = movie.genres.joinToString(", ") { it.name }
+        binding.genres.text = movie.genres.joinToString(", ")
         binding.ratingBar.rating = movie.ratings / 2
         binding.reviews.text =
             itemView.resources.getQuantityString(R.plurals.review, movie.reviews, movie.reviews)

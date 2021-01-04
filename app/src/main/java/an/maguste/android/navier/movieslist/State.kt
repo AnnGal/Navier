@@ -1,4 +1,4 @@
-package an.maguste.android.navier.data
+package an.maguste.android.navier.movieslist
 
 sealed class State {
     object Init : State()

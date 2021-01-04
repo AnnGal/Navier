@@ -2,7 +2,6 @@ package an.maguste.android.navier.movieslist
 
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.databinding.FragmentMoviesListBinding
-import an.maguste.android.navier.data.State
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater

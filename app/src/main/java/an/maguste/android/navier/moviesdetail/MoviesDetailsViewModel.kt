@@ -1,7 +1,7 @@
 package an.maguste.android.navier.moviesdetail
 
 import an.maguste.android.navier.api.MovieApi
-import an.maguste.android.navier.api.convertFromJsonToActor
+import an.maguste.android.navier.api.convertActorDtoToDomain
 import an.maguste.android.navier.data.Actor
 import an.maguste.android.navier.data.Movie
 import android.util.Log
@@ -31,7 +31,7 @@ class MoviesDetailsViewModel(private val apiService: MovieApi) : ViewModel() {
                 // get actors
                 val resultRequest = apiService.getActors(movieId = movieId)
                 // convert actors data
-                val actors = resultRequest.actors?.let { convertFromJsonToActor(it) }
+                val actors = resultRequest.actors?.let { convertActorDtoToDomain(it) }
 
                 _actors.value = actors
 

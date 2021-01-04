@@ -1,9 +1,8 @@
 package an.maguste.android.navier.movieslist
 
 import an.maguste.android.navier.api.MovieApi
-import an.maguste.android.navier.api.convertFromJsonToMovie
+import an.maguste.android.navier.api.convertMovieDtoToDomain
 import an.maguste.android.navier.data.Movie
-import an.maguste.android.navier.data.State
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -32,7 +31,7 @@ class MoviesListViewModel(private val apiService: MovieApi) :
                 // get movie
                 val moviesDto = apiService.getMovies()
                 // convert movies data
-                val movies = moviesDto.results?.let { convertFromJsonToMovie(it, genres.genres) }
+                val movies = convertMovieDtoToDomain(moviesDto.results, genres.genres)
 
                 _movies.value = movies
                 _state.value = State.Success

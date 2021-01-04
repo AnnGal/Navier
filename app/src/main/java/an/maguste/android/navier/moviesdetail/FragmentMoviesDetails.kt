@@ -91,7 +91,7 @@ class FragmentMoviesDetails : Fragment() {
             }
 
             binding.title.text = title
-            binding.genres.text = genres.joinToString(", ") { it.name }
+            binding.genres.text = genres.joinToString(", ")
             with(binding.ratingBar) {
                 visibility = View.VISIBLE
                 rating = ratings / 2

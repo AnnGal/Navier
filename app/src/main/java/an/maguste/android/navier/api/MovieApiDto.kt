@@ -1,27 +1,19 @@
 package an.maguste.android.navier.api
 
 import an.maguste.android.navier.BuildConfig
-import an.maguste.android.navier.data.Genre
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+// movies
 @Serializable
 data class MoviesDto(
-    val results: List<MovieDto>? = null
-)
-
-@Serializable
-data class GenresDto(
-    val genres: List<Genre>
+    val results: List<MovieDto>
 )
 
 @Serializable
 data class MovieDto(
-    @SerialName("id")
     val id: Int,
-    @SerialName("title")
     val title: String,
-    @SerialName("overview")
     val overview: String?,
     @SerialName("poster_path")
     val poster: String?,
@@ -29,36 +21,38 @@ data class MovieDto(
     val backdrop: String?,
     @SerialName("vote_average")
     val ratings: Float,
-    @SerialName("adult")
     val adult: Boolean,
-    @SerialName("runtime")
     val runtime: Int? = null,
     @SerialName("vote_count")
     val reviews: Int,
     @SerialName("genre_ids")
     val genreIds: List<Int>
-) {
-    val backdropLink: String?
-        get() = backdrop?.let { BuildConfig.IMAGE_URL + backdrop }
-    val posterLink: String?
-        get() = poster?.let { BuildConfig.IMAGE_URL + poster }
-}
+)
+
+// genres
+@Serializable
+data class GenresDto(
+    val genres: List<GenreDto>
+)
 
 @Serializable
-data class ActorsListDto(
+data class GenreDto(
+    val id: Int,
+    val name: String
+)
+
+// actors
+@Serializable
+data class ActorsDto(
     @SerialName("cast")
-    val actors: List<ActorDto>? = null
+    val actors: List<ActorDto>
 )
 
 @Serializable
 data class ActorDto(
-    @SerialName("id")
     val id: Int,
-    @SerialName("name")
     val name: String,
     @SerialName("profile_path")
     val image: String? = null
-) {
-    val imageLink: String?
-        get() = image?.let { BuildConfig.IMAGE_URL + image }
-}
+)
+

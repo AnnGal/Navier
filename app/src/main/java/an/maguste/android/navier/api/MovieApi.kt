@@ -25,5 +25,5 @@ interface MovieApi {
     suspend fun getActors(
         @Path("movie_id") movieId: Int,
         @Query("api_key") key: String = BuildConfig.API_KEY
-    ): ActorsListDto
+    ): ActorsDto
 }
