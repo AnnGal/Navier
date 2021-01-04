@@ -1,6 +1,5 @@
 package an.maguste.android.navier.api
 
-import an.maguste.android.navier.BuildConfig
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

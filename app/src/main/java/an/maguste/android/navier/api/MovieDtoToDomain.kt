@@ -1,7 +1,6 @@
 package an.maguste.android.navier.api
 
 import an.maguste.android.navier.BuildConfig
-import an.maguste.android.navier.data.Actor
 import an.maguste.android.navier.data.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,7 +16,7 @@ suspend fun convertMovieDtoToDomain(moviesDto: List<MovieDto>, genres: List<Genr
                 overview = movieDto.overview,
                 poster = movieDto.poster?.let { BuildConfig.IMAGE_URL + movieDto.poster },
                 backdrop = movieDto.backdrop?.let { BuildConfig.IMAGE_URL + movieDto.backdrop },
-                ratings = movieDto.ratings,
+                ratings = movieDto.ratings / 2,
                 adult = movieDto.adult,
                 runtime = movieDto.runtime,
                 reviews = movieDto.reviews,

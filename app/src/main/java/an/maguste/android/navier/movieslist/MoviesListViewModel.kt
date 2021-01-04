@@ -30,7 +30,7 @@ class MoviesListViewModel(private val apiService: MovieApi) :
                 val genres = apiService.getGenres()
                 // get movie
                 val moviesDto = apiService.getMovies()
-                // convert movies data
+                // get movie domain data
                 val movies = convertMovieDtoToDomain(moviesDto.results, genres.genres)
 
                 _movies.value = movies

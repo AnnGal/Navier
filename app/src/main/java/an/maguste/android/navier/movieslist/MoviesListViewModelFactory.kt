@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.serialization.ExperimentalSerializationApi
 import retrofit2.create
 
-class MoviesListViewModelFactory() : ViewModelProvider.Factory {
+class MoviesListViewModelFactory : ViewModelProvider.Factory {
 
     @ExperimentalSerializationApi
     @Suppress("UNCHECKED_CAST")

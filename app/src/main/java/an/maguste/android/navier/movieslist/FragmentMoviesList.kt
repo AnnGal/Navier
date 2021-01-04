@@ -42,7 +42,7 @@ class FragmentMoviesList : Fragment() {
         // watch for LiveData
         setObservers()
 
-        if (viewModel.movies.value.isNullOrEmpty()){   // to avoid unnecessary request, when we came back from the detail screen
+        if (viewModel.movies.value.isNullOrEmpty()) {   // to avoid unnecessary request, when we came back from the detail screen
             viewModel.loadMovies()
         }
     }

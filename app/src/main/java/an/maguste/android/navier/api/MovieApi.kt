@@ -6,6 +6,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieApi {
+
     @GET("genre/movie/list")
     suspend fun getGenres(@Query("api_key") key: String = BuildConfig.API_KEY): GenresDto
 

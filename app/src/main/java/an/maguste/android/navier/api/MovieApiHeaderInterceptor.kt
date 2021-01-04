@@ -1,7 +1,6 @@
 package an.maguste.android.navier.api
 
 import an.maguste.android.navier.BuildConfig
-import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Response
 

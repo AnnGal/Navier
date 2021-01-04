@@ -53,20 +53,16 @@ class FragmentMoviesDetails : Fragment() {
         setObservers()
 
         movie?.let {
-            viewModel.setMovie(movie!!)
+            setMovieData(it)
+            viewModel.getActors(it.id)
         }
     }
 
     private fun setObservers() {
-        // observe movie information
-        viewModel.movie.observe(viewLifecycleOwner, {
-            setMovieData(it)
-        })
-
+        // observe actors data
         viewModel.actors.observe(viewLifecycleOwner, {
             setActorsData(it)
         })
-
     }
 
     // set data on fragment
@@ -81,20 +77,17 @@ class FragmentMoviesDetails : Fragment() {
 
         with(movie) {
             // remove age rating or put correct
-            when {
-                adult -> {
-                    binding.ageRating.text = resources.getString(R.string.age_rating_default)
-                }
-                else -> {
-                    binding.ageRating.visibility = View.INVISIBLE
-                }
+            if (adult) {
+                binding.ageRating.text = resources.getString(R.string.age_rating_default)
+            } else {
+                binding.ageRating.visibility = View.INVISIBLE
             }
 
             binding.title.text = title
             binding.genres.text = genres.joinToString(", ")
             with(binding.ratingBar) {
                 visibility = View.VISIBLE
-                rating = ratings / 2
+                rating = ratings
             }
             binding.reviews.text = resources.getQuantityString(R.plurals.review, reviews, reviews)
 
@@ -107,12 +100,11 @@ class FragmentMoviesDetails : Fragment() {
     }
 
     private fun setActorsData(actors: List<Actor>) {
-        when (actors.isNotEmpty()) {
-            true -> {
-                binding.cast.visibility = View.VISIBLE
-                (binding.recyclerView.adapter as? ActorAdapter)?.bindActor(actors)
-            }
-            else -> binding.cast.visibility = View.INVISIBLE
+        if (actors.isNotEmpty()) {
+            binding.cast.visibility = View.VISIBLE
+            (binding.recyclerView.adapter as? ActorAdapter)?.bindActor(actors)
+        } else {
+            binding.cast.visibility = View.INVISIBLE
         }
     }
 

@@ -54,7 +54,7 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         binding.like.setImageResource(if (movie.like) R.drawable.ic_like else R.drawable.ic_like_empty)
         binding.genres.text = movie.genres.joinToString(", ")
-        binding.ratingBar.rating = movie.ratings / 2
+        binding.ratingBar.rating = movie.ratings
         binding.reviews.text =
             itemView.resources.getQuantityString(R.plurals.review, movie.reviews, movie.reviews)
         binding.title.text = movie.title

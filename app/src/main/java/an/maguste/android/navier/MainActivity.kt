@@ -4,7 +4,7 @@ import an.maguste.android.navier.databinding.ActivityMainBinding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MainActivity : AppCompatActivity()/*, ChangeFragment */{
+class MainActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityMainBinding
 
