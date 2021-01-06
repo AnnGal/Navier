@@ -2,7 +2,6 @@ package an.maguste.android.navier.movieslist
 
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.databinding.FragmentMoviesListBinding
-import an.maguste.android.navier.mvvm.State
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-
 
 class FragmentMoviesList : Fragment() {
 
@@ -37,7 +35,6 @@ class FragmentMoviesList : Fragment() {
 
         // set recycler view
         binding.recyclerView.adapter = MovieAdapter(OnMovieClickListener { movie ->
-            //viewModel.selectMovie(it)
             openMoviesDetailFragment(movie)
         })
         binding.recyclerView.layoutManager = GridLayoutManager(context, getSpanCount())
@@ -45,7 +42,7 @@ class FragmentMoviesList : Fragment() {
         // watch for LiveData
         setObservers()
 
-        if (viewModel.movies.value.isNullOrEmpty()){   // to avoid unnecessary request, when we came back from the detail screen
+        if (viewModel.movies.value.isNullOrEmpty()) {   // to avoid unnecessary request, when we came back from the detail screen
             viewModel.loadMovies()
         }
     }
