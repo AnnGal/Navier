@@ -1,8 +1,9 @@
 package an.maguste.android.navier.movieslist
 
 import an.maguste.android.navier.api.MovieApi
-import an.maguste.android.navier.api.convertMovieDtoToDomain
+import an.maguste.android.navier.api.dtotodomain.convertMovieDtoToDomain
 import an.maguste.android.navier.data.Movie
+import an.maguste.android.navier.storage.MoviesDatabase
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -44,4 +45,12 @@ class MoviesListViewModel(private val apiService: MovieApi) :
             }
         }
     }
+
+    fun addMovieToDB(){
+        movies.value?.get(0)?.let {
+
+        }
+    }
+
+
 }

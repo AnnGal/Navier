@@ -1,6 +1,7 @@
-package an.maguste.android.navier.api
+package an.maguste.android.navier.api.dtotodomain
 
 import an.maguste.android.navier.BuildConfig
+import an.maguste.android.navier.api.ActorDto
 import an.maguste.android.navier.data.Actor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

@@ -1,7 +1,7 @@
 package an.maguste.android.navier.moviesdetail
 
 import an.maguste.android.navier.api.MovieApi
-import an.maguste.android.navier.api.convertActorDtoToDomain
+import an.maguste.android.navier.api.dtotodomain.convertActorDtoToDomain
 import an.maguste.android.navier.data.Actor
 import android.util.Log
 import androidx.lifecycle.LiveData

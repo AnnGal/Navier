@@ -1,6 +1,8 @@
-package an.maguste.android.navier.api
+package an.maguste.android.navier.api.dtotodomain
 
 import an.maguste.android.navier.BuildConfig
+import an.maguste.android.navier.api.GenreDto
+import an.maguste.android.navier.api.MovieDto
 import an.maguste.android.navier.data.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
