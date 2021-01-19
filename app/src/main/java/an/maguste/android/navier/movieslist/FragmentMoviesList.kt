@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 
 class FragmentMoviesList : Fragment() {
@@ -49,7 +48,8 @@ class FragmentMoviesList : Fragment() {
 
     /** on card click reaction */
     private fun openMoviesDetailFragment(movie: Movie) {
-        this.findNavController().navigate(FragmentMoviesListDirections.actionToMoviesDetails(movie))
+        viewModel.addMovieToDb(movie)
+        //this.findNavController().navigate(FragmentMoviesListDirections.actionToMoviesDetails(movie))
     }
 
     /** observe ViewModel data */

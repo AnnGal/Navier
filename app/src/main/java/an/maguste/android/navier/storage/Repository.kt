@@ -2,31 +2,40 @@ package an.maguste.android.navier.storage
 
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.storage.entitys.MovieEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 interface MoviesRepository {
     suspend fun getAllMovies(): List<Movie>
-
+    suspend fun writeIntoDB(movie: Movie)
     //suspend fun addNewAndGetUpdated(): List<Location>
     //suspend fun deleteByIdAndGetUpdated(id: Long): List<Location>
 }
 
-class Repository: MoviesRepository {
+class Repository : MoviesRepository {
     private val moviesDB = MoviesDatabase.instance
 
-   /* private fun writeIntoDB(movie: Movie){
-        MoviesDatabase.instance.moviesDao().insert()
-    }*/
+    override suspend fun writeIntoDB(movie: Movie) = withContext(Dispatchers.IO){
+         MoviesDatabase.instance.moviesDao().insert(toEntity(movie))
+     }
 
-    override suspend fun getAllMovies(): List<Movie> {
-        TODO("Not yet implemented")
+    override suspend fun getAllMovies(): List<Movie> = withContext(Dispatchers.IO) {
+        moviesDB.moviesDao().getAll().map { toDomain(it) }
     }
-/*
 
     private fun toEntity(movieDomain: Movie) = MovieEntity(
-        title = location.title,
-        lat = location.latitude,
-        lon = location.longitude
+        id = movieDomain.id.toLong(),
+        title = movieDomain.title,
+        overview = movieDomain.overview,
+        poster = movieDomain.poster,
+        backdrop = movieDomain.backdrop,
+        ratings = movieDomain.ratings,
+        adult = movieDomain.adult,
+        runtime = movieDomain.runtime,
+        reviews = movieDomain.reviews,
+        genres = movieDomain.genres.joinToString(","),
+        like = movieDomain.like
     )
 
     private fun toDomain(movieEntity: MovieEntity) = Movie(
@@ -35,11 +44,11 @@ class Repository: MoviesRepository {
         overview = movieEntity.overview,
         poster = movieEntity.poster,
         backdrop = movieEntity.backdrop,
-            ratings = movieEntity.ratings,
-            adult = movieEntity.adult,
-            runtime = movieEntity.runtime,
-            reviews = movieEntity.reviews
-            genres = movieEntity.
-            like =
-    )  */
+        ratings = movieEntity.ratings,
+        adult = movieEntity.adult,
+        runtime = movieEntity.runtime,
+        reviews = movieEntity.reviews,
+        genres = movieEntity.genres.split(",").map { it.trim() },
+        like = movieEntity.like
+    )
 }

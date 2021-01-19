@@ -14,4 +14,7 @@ interface MoviesDao {
 
     @Delete
     suspend fun delete(movie: MovieEntity)
+
+    @Query("SELECT * FROM MOVIE ORDER BY _id ASC")
+    suspend fun getAll(): List<MovieEntity>
 }
