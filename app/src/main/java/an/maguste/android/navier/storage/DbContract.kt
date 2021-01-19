@@ -1,9 +1,9 @@
-package an.maguste.android.navier.storage.entitys
+package an.maguste.android.navier.storage
 
 import android.provider.BaseColumns
 
 object DbContract {
-    const val DATABASE_NAME = "Movies.db"
+    const val DATABASE_NAME = "Movies_db"
 
     /*
     * NOTE: In this case will be no many_to_many table between Movie and Actors,

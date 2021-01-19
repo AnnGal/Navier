@@ -1,5 +1,6 @@
 package an.maguste.android.navier.storage.entitys
 
+import an.maguste.android.navier.storage.DbContract
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

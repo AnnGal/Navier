@@ -8,17 +8,23 @@ import kotlinx.coroutines.withContext
 
 interface MoviesRepository {
     suspend fun getAllMovies(): List<Movie>
-    suspend fun writeIntoDB(movie: Movie)
+    suspend fun writeMovieIntoDB(movie: Movie)
+    suspend fun rewriteMoviesListIntoDB(movies: List<Movie>)
     //suspend fun addNewAndGetUpdated(): List<Location>
     //suspend fun deleteByIdAndGetUpdated(id: Long): List<Location>
 }
 
-class Repository : MoviesRepository {
+class MoviesRepositoryImpl : MoviesRepository {
     private val moviesDB = MoviesDatabase.instance
 
-    override suspend fun writeIntoDB(movie: Movie) = withContext(Dispatchers.IO){
-         MoviesDatabase.instance.moviesDao().insert(toEntity(movie))
-     }
+    override suspend fun writeMovieIntoDB(movie: Movie) = withContext(Dispatchers.IO) {
+        moviesDB.moviesDao().insert(toEntity(movie))
+    }
+
+    override suspend fun rewriteMoviesListIntoDB(movies: List<Movie>) {
+        moviesDB.moviesDao().deleteAll()
+        moviesDB.moviesDao().insertAll(movies.map { toEntity(it) })
+    }
 
     override suspend fun getAllMovies(): List<Movie> = withContext(Dispatchers.IO) {
         moviesDB.moviesDao().getAll().map { toDomain(it) }
