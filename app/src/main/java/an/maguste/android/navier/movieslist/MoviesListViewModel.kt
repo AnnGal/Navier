@@ -33,9 +33,11 @@ class MoviesListViewModel(
     private fun loadMoviesFromApi() {
         viewModelScope.launch {
             try {
+                // if we got movies from db - don't change state
                 if (state.value != State.Success) {
                     _state.value = State.Loading
                 }
+
                 // get genres
                 val genres = apiService.getGenres()
                 // get movie
@@ -46,7 +48,11 @@ class MoviesListViewModel(
                 _movies.value = movies
                 _state.value = State.Success
 
-                saveMoviesLocally()
+                // do not rewrite with empty data
+                if (!movies.isNullOrEmpty()){
+                    saveMoviesLocally()
+                }
+
             } catch (e: Exception) {
                 // if we didn't receive data from DB before - show error connection
                 if (state.value != State.Success) {
@@ -62,7 +68,7 @@ class MoviesListViewModel(
     }
 
     private fun saveMoviesLocally() {
-        if ( !movies.value.isNullOrEmpty() ){
+        if (!movies.value.isNullOrEmpty()) {
             viewModelScope.launch {
                 repository.rewriteMoviesListIntoDB(movies.value!!)
             }
@@ -75,11 +81,12 @@ class MoviesListViewModel(
                 _state.value = State.Loading
 
                 // load movies from database
-                val movies = repository.getAllMovies()
+                val moviesDB = repository.getAllMovies()
 
-                // if there are any movies - show them and show success state
-                if (movies.isNotEmpty()) {
-                    _movies.value = movies
+                Log.d("DBCharge", "movies in db = ${moviesDB.size}")
+                // if there are no any movies - show them and show success state
+                if (moviesDB.isNotEmpty()) {
+                    _movies.value = moviesDB
                     _state.value = State.Success
                 } else State.EmptyDataSet
             } catch (e: Exception) {

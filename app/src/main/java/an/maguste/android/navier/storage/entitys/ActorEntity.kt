@@ -1,11 +1,8 @@
 package an.maguste.android.navier.storage.entitys
 
 import an.maguste.android.navier.storage.DbContract
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.PrimaryKey
 
 @Entity(tableName = DbContract.ActorContract.TABLE_NAME,
 foreignKeys = [ForeignKey(
@@ -13,11 +10,15 @@ foreignKeys = [ForeignKey(
     parentColumns = arrayOf(DbContract.MovieContract.COLUMN_NAME_ID),
     childColumns = arrayOf(DbContract.ActorContract.COLUMN_NAME_MOVIE_ID),
     onDelete = CASCADE
-)])
+)],
+    indices = [Index(value = [DbContract.ActorContract.COLUMN_NAME_MOVIE_ID])]
+)
 class ActorEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = DbContract.ActorContract.COLUMN_NAME_ID)
-    val id: Long,
+    val id: Long?,
+    @ColumnInfo(name = DbContract.ActorContract.COLUMN_NAME_ACTOR_ID)
+    val actorId: Int,
     val name: String,
     @ColumnInfo(name = DbContract.ActorContract.COLUMN_NAME_IMAGE)
     val image: String?,

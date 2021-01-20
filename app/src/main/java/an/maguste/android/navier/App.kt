@@ -5,9 +5,6 @@ import android.app.Application
 import android.content.Context
 
 class App : Application() {
-
-
-
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
@@ -19,6 +16,5 @@ class App : Application() {
 
         private val repository by lazy { MoviesRepositoryImpl() }
         fun repository(): MoviesRepositoryImpl = repository
-
     }
 }

@@ -6,8 +6,8 @@ object DbContract {
     const val DATABASE_NAME = "Movies_db"
 
     /*
-    * NOTE: In this case will be no many_to_many table between Movie and Actors,
-    * this info will be stored in Actors table.
+    * NOTE: In this case, there will be no many-to-many table between the movie and the actors.
+    * Information about in which movie actor takes part in - stored in actors table
     * */
 
     object MovieContract {
@@ -16,12 +16,11 @@ object DbContract {
         const val COLUMN_NAME_ID = BaseColumns._ID
     }
 
-
     object ActorContract {
         const val TABLE_NAME = "actor"
 
         const val COLUMN_NAME_ID = BaseColumns._ID
-        const val COLUMN_NAME_NAME = "name"
+        const val COLUMN_NAME_ACTOR_ID = "actor_id"
         const val COLUMN_NAME_IMAGE = "image_url"
         const val COLUMN_NAME_MOVIE_ID = "movie_id"
     }
