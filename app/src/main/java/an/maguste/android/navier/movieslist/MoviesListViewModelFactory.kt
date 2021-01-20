@@ -14,7 +14,8 @@ class MoviesListViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T = when (modelClass) {
         MoviesListViewModel::class.java -> MoviesListViewModel(
             apiService = RetrofitHolder.retrofit.create(),
-            repository = App.repository())
+            repository = App.repository()
+        )
         else -> throw IllegalArgumentException("$modelClass is not registered ViewModel")
     } as T
 

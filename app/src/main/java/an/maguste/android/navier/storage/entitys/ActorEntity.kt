@@ -4,13 +4,14 @@ import an.maguste.android.navier.storage.DbContract
 import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
 
-@Entity(tableName = DbContract.ActorContract.TABLE_NAME,
-foreignKeys = [ForeignKey(
-    entity = MovieEntity::class,
-    parentColumns = arrayOf(DbContract.MovieContract.COLUMN_NAME_ID),
-    childColumns = arrayOf(DbContract.ActorContract.COLUMN_NAME_MOVIE_ID),
-    onDelete = CASCADE
-)],
+@Entity(
+    tableName = DbContract.ActorContract.TABLE_NAME,
+    foreignKeys = [ForeignKey(
+        entity = MovieEntity::class,
+        parentColumns = arrayOf(DbContract.MovieContract.COLUMN_NAME_ID),
+        childColumns = arrayOf(DbContract.ActorContract.COLUMN_NAME_MOVIE_ID),
+        onDelete = CASCADE
+    )],
     indices = [Index(value = [DbContract.ActorContract.COLUMN_NAME_MOVIE_ID])]
 )
 class ActorEntity(

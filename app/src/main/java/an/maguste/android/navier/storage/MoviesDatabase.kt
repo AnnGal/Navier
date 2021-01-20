@@ -19,8 +19,7 @@ abstract class MoviesDatabase : RoomDatabase() {
                 App.context(),
                 MoviesDatabase::class.java,
                 DbContract.DATABASE_NAME
-            ).fallbackToDestructiveMigration()
-                .build()
+            ).build()
         }
     }
 }

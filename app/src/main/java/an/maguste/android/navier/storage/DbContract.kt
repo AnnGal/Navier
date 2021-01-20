@@ -7,7 +7,7 @@ object DbContract {
 
     /*
     * NOTE: In this case, there will be no many-to-many table between the movie and the actors.
-    * Information about in which movie actor takes part in - stored in actors table
+    * Information about which movie actor takes part in - stored in actors table
     * */
 
     object MovieContract {

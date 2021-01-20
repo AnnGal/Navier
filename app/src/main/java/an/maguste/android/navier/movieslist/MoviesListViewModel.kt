@@ -15,8 +15,7 @@ import java.lang.Exception
 class MoviesListViewModel(
     private val apiService: MovieApi,
     private val repository: MoviesRepository
-) :
-    ViewModel() {
+) : ViewModel() {
 
     private val _state = MutableLiveData<State>(State.Init)
     val state: LiveData<State> get() = _state
@@ -24,7 +23,7 @@ class MoviesListViewModel(
     private val _movies = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>> get() = _movies
 
-    /** get movies list from API */
+    /** get movies list from DB first. After that try to reach API via internet */
     fun loadMovies() {
         loadMoviesFromDb()
         loadMoviesFromApi()
@@ -48,8 +47,8 @@ class MoviesListViewModel(
                 _movies.value = movies
                 _state.value = State.Success
 
-                // do not rewrite with empty data
-                if (!movies.isNullOrEmpty()){
+                // don't rewrite with empty data
+                if (!movies.isNullOrEmpty()) {
                     saveMoviesLocally()
                 }
 
@@ -83,12 +82,14 @@ class MoviesListViewModel(
                 // load movies from database
                 val moviesDB = repository.getAllMovies()
 
-                Log.d("DBCharge", "movies in db = ${moviesDB.size}")
-                // if there are no any movies - show them and show success state
+                // if there are any movies - show them and show success state
                 if (moviesDB.isNotEmpty()) {
                     _movies.value = moviesDB
                     _state.value = State.Success
-                } else State.EmptyDataSet
+                } else {
+                    _state.value = State.EmptyDataSet
+                }
+
             } catch (e: Exception) {
                 _state.value = State.EmptyDataSet
                 Log.e(

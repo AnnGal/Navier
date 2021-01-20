@@ -4,10 +4,8 @@ import an.maguste.android.navier.data.Actor
 import an.maguste.android.navier.data.Movie
 import an.maguste.android.navier.storage.entitys.ActorEntity
 import an.maguste.android.navier.storage.entitys.MovieEntity
-import androidx.room.ColumnInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-
 
 interface MoviesRepository {
     /* movies */
@@ -23,27 +21,35 @@ interface MoviesRepository {
 class MoviesRepositoryImpl : MoviesRepository {
     private val moviesDB = MoviesDatabase.instance
 
+    /** add movies data into db*/
     override suspend fun writeMovieIntoDB(movie: Movie) = withContext(Dispatchers.IO) {
         moviesDB.moviesDao().insert(toMovieEntity(movie))
     }
 
-    override suspend fun rewriteMoviesListIntoDB(movies: List<Movie>) = withContext(Dispatchers.IO){
-        moviesDB.moviesDao().deleteAll()
-        moviesDB.moviesDao().insertAll(movies.map { toMovieEntity(it) })
-    }
+    /** del movies and write new movies data set again */
+    override suspend fun rewriteMoviesListIntoDB(movies: List<Movie>) =
+        withContext(Dispatchers.IO) {
+            moviesDB.moviesDao().deleteAll()
+            moviesDB.moviesDao().insertAll(movies.map { toMovieEntity(it) })
+        }
 
+    /** request movies from db */
     override suspend fun getAllMovies(): List<Movie> = withContext(Dispatchers.IO) {
         moviesDB.moviesDao().getAll().map { toMovieDomain(it) }
     }
 
-    override suspend fun getAllActorsByMovie(movieId: Int): List<Actor> = withContext(Dispatchers.IO) {
-        moviesDB.actorsDao().getAllByMovieId(movieId).map { toActorDomain(it) }
-    }
+    /** request actors by movie id */
+    override suspend fun getAllActorsByMovie(movieId: Int): List<Actor> =
+        withContext(Dispatchers.IO) {
+            moviesDB.actorsDao().getAllByMovieId(movieId).map { toActorDomain(it) }
+        }
 
-    override suspend fun rewriteActorsByMovieIntoDB(actors: List<Actor>, movieId: Int) = withContext(Dispatchers.IO){
-        moviesDB.actorsDao().deleteByMovieId(movieId)
-        moviesDB.actorsDao().insertAll(actors.map { toActorEntity(it, movieId) })
-    }
+    /** del actors and write it again. all by movie id */
+    override suspend fun rewriteActorsByMovieIntoDB(actors: List<Actor>, movieId: Int) =
+        withContext(Dispatchers.IO) {
+            moviesDB.actorsDao().deleteByMovieId(movieId)
+            moviesDB.actorsDao().insertAll(actors.map { toActorEntity(it, movieId) })
+        }
 
     private fun toActorDomain(actorEntity: ActorEntity) = Actor(
         id = actorEntity.actorId,
