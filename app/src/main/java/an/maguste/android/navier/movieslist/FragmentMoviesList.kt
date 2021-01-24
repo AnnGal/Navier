@@ -49,6 +49,7 @@ class FragmentMoviesList : Fragment() {
 
     /** on card click reaction */
     private fun openMoviesDetailFragment(movie: Movie) {
+        //viewModel.addMovieToDb(movie)
         this.findNavController().navigate(FragmentMoviesListDirections.actionToMoviesDetails(movie))
     }
 
