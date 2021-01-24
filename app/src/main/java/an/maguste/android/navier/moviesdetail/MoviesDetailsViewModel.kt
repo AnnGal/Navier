@@ -4,7 +4,7 @@ import an.maguste.android.navier.api.MovieApi
 import an.maguste.android.navier.api.dtotodomain.convertActorDtoToDomain
 import an.maguste.android.navier.data.Actor
 import an.maguste.android.navier.movieslist.MoviesListViewModel
-import an.maguste.android.navier.storage.MoviesRepositoryImpl
+import an.maguste.android.navier.storage.repository.ActorsRepositoryImpl
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,64 +15,53 @@ import java.lang.Exception
 
 class MoviesDetailsViewModel(
     private val apiService: MovieApi,
-    private val repository: MoviesRepositoryImpl
+    private val repository: ActorsRepositoryImpl
 ) : ViewModel() {
 
     private val _actors = MutableLiveData<List<Actor>>()
     val actors: LiveData<List<Actor>> get() = _actors
 
     fun getActors(movieId: Int) {
-        loadActorsFromDb(movieId)
-        loadActorsFromApi(movieId)
-    }
-
-    private fun loadActorsFromApi(movieId: Int) {
         viewModelScope.launch {
-            try {
-                // get actors
-                val resultRequest = apiService.getActors(movieId = movieId)
-                // get actors domain data
-                val actors = convertActorDtoToDomain(resultRequest.actors)
-
-                _actors.value = actors
-
-                // do not rewrite with empty data
-                if (!actors.isNullOrEmpty()) {
-                    saveActorsLocally(movieId)
-                }
-            } catch (e: Exception) {
-                Log.e(
-                    MoviesDetailsViewModel::class.java.simpleName,
-                    "Error grab actors data from API: ${e.message}"
-                )
-            }
+            loadActorsFromDb(movieId)
+            loadActorsFromApi(movieId)
         }
     }
 
-    private fun saveActorsLocally(movieId: Int) {
-        if (!actors.value.isNullOrEmpty()) {
-            viewModelScope.launch {
-                repository.rewriteActorsByMovieIntoDB(actors.value!!, movieId)
+    private suspend fun loadActorsFromApi(movieId: Int) {
+        try {
+            // get actors
+            val resultRequest = apiService.getActors(movieId = movieId)
+            // get actors domain data
+            val actors = convertActorDtoToDomain(resultRequest.actors)
+
+            _actors.value = actors
+
+            // do not rewrite with empty data
+            if (!actors.isNullOrEmpty()) {
+                repository.rewriteActorsByMovieIntoDB(actors, movieId)
             }
+        } catch (e: Exception) {
+            Log.e(
+                MoviesDetailsViewModel::class.java.simpleName,
+                "Error grab actors data from API: ${e.message}"
+            )
         }
     }
 
-    private fun loadActorsFromDb(movieId: Int) {
-        viewModelScope.launch {
-            try {
-                // load actors from database
-                val actorsDB = repository.getAllActorsByMovie(movieId)
+    private suspend fun loadActorsFromDb(movieId: Int) {
+        try {
+            // load actors from database
+            val actorsDB = repository.getAllActorsByMovie(movieId)
 
-                if (actorsDB.isNotEmpty()) {
-                    _actors.value = actorsDB
-                }
-
-            } catch (e: Exception) {
-                Log.e(
-                    MoviesListViewModel::class.java.simpleName,
-                    "Error grab actors data from DB: ${e.message}"
-                )
+            if (actorsDB.isNotEmpty()) {
+                _actors.value = actorsDB
             }
+        } catch (e: Exception) {
+            Log.e(
+                MoviesListViewModel::class.java.simpleName,
+                "Error grab actors data from DB: ${e.message}"
+            )
         }
     }
 }

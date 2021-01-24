@@ -77,9 +77,6 @@ class FragmentMoviesList : Fragment() {
                     binding.progressBar.visibility = View.INVISIBLE
                     binding.layoutLostData.visibility = View.VISIBLE
                 }
-                State.EmptyDataSet -> {
-                    binding.progressBar.visibility = View.INVISIBLE
-                }
             }
         })
     }
