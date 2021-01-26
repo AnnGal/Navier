@@ -71,6 +71,9 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.2.6'
     implementation 'androidx.room:room-ktx:2.2.6'
 
+    /*work manager for services*/
+    implementation 'androidx.work:work-runtime-ktx:2.4.0'
+
     /*tests*/
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'androidx.room:room-testing:2.2.6'
