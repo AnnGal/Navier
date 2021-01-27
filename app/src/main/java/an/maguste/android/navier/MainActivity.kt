@@ -1,8 +1,8 @@
 package an.maguste.android.navier
 
 import an.maguste.android.navier.databinding.ActivityMainBinding
-import an.maguste.android.navier.services.UpdateMovieWorkerRequest
-import an.maguste.android.navier.services.UpdateMovieWorkerRequest.Companion.WORKER_MOVIE_UPDATE_NAME
+import an.maguste.android.navier.background.UpdateMovieWorkerRequest
+import an.maguste.android.navier.background.UpdateMovieWorkerRequest.Companion.WORKER_MOVIE_UPDATE_NAME
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -19,16 +19,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
 
-        //WorkManager.getInstance(App.context()).enqueue(backgroundRequests.periodicRequest)
-        //val work = PeriodicWorkRequestBuilder<SyncWork>(15,TimeUnit.MINUTES).build()
-
-        //WorkManager.getInstance().enqueueUniquePeriodicWork("TaskTag",
-        ///    ExistingPeriodicWorkPolicy.KEEP, work);
-
+        // can i start services from here?
         WorkManager.getInstance(App.context()).enqueueUniquePeriodicWork(
             WORKER_MOVIE_UPDATE_NAME,
-            ExistingPeriodicWorkPolicy.KEEP,
-            backgroundRequests.periodicRequest
+            ExistingPeriodicWorkPolicy.REPLACE,
+            backgroundRequests.periodicRequestCoroutine
         )
 
         setContentView(view)
