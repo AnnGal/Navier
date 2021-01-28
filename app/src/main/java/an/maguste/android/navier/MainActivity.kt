@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
 
-        // can i start services from here?
+        // can start services from here?
         WorkManager.getInstance(App.context()).enqueueUniquePeriodicWork(
             WORKER_MOVIE_UPDATE_NAME,
             ExistingPeriodicWorkPolicy.REPLACE,

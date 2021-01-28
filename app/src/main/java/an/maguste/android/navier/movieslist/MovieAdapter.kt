@@ -6,13 +6,15 @@ import an.maguste.android.navier.databinding.ViewHolderMovieBinding
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
-class MovieAdapter(private var movieListener: OnMovieClickListener) :
-    RecyclerView.Adapter<MovieViewHolder>() {
+class MovieAdapter(private var movieListener: OnMovieClickListener)
+    : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback()) {
 
     private var moviesList = listOf<Movie>()
 
@@ -67,4 +69,14 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 class OnMovieClickListener(val clickListener: (movie: Movie) -> Unit) {
     fun onClick(movie: Movie) = clickListener(movie)
+}
+
+private class MovieDiffCallback: DiffUtil.ItemCallback<Movie>() {
+    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem == newItem
+    }
 }
