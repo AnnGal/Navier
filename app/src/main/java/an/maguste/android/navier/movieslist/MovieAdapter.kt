@@ -13,10 +13,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
+
 class MovieAdapter(private var movieListener: OnMovieClickListener)
     : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback()) {
-
-    private var moviesList = listOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
         MovieViewHolder(
@@ -26,15 +25,10 @@ class MovieAdapter(private var movieListener: OnMovieClickListener)
         )
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(moviesList[position])
-        holder.itemView.setOnClickListener { movieListener.onClick(moviesList[position]) }
-    }
+        val movie = getItem(position)
 
-    override fun getItemCount(): Int = moviesList.size
-
-    fun bindMovie(newMoviesList: List<Movie>) {
-        moviesList = newMoviesList
-        notifyDataSetChanged()
+        holder.bind(movie)
+        holder.itemView.setOnClickListener { movieListener.onClick(movie) }
     }
 }
 
