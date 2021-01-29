@@ -6,15 +6,16 @@ import an.maguste.android.navier.databinding.ViewHolderMovieBinding
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
-class MovieAdapter(private var movieListener: OnMovieClickListener) :
-    RecyclerView.Adapter<MovieViewHolder>() {
 
-    private var moviesList = listOf<Movie>()
+class MovieAdapter(private var movieListener: OnMovieClickListener)
+    : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
         MovieViewHolder(
@@ -24,15 +25,10 @@ class MovieAdapter(private var movieListener: OnMovieClickListener) :
         )
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(moviesList[position])
-        holder.itemView.setOnClickListener { movieListener.onClick(moviesList[position]) }
-    }
+        val movie = getItem(position)
 
-    override fun getItemCount(): Int = moviesList.size
-
-    fun bindMovie(newMoviesList: List<Movie>) {
-        moviesList = newMoviesList
-        notifyDataSetChanged()
+        holder.bind(movie)
+        holder.itemView.setOnClickListener { movieListener.onClick(movie) }
     }
 }
 
@@ -67,4 +63,14 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 class OnMovieClickListener(val clickListener: (movie: Movie) -> Unit) {
     fun onClick(movie: Movie) = clickListener(movie)
+}
+
+private class MovieDiffCallback: DiffUtil.ItemCallback<Movie>() {
+    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem == newItem
+    }
 }

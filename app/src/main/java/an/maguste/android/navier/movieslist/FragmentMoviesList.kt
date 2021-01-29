@@ -56,9 +56,10 @@ class FragmentMoviesList : Fragment() {
     /** observe ViewModel data */
     private fun setObservers() {
         // observe movies data
-        viewModel.movies.observe(viewLifecycleOwner, { movieList ->
+        viewModel.movies.observe(viewLifecycleOwner, { movieList: List<Movie>? ->
             (binding.recyclerView.adapter as MovieAdapter).apply {
-                bindMovie(movieList)
+                //bindMovie(movieList)
+                this.submitList(movieList)
             }
         })
 
