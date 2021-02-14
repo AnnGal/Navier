@@ -1,8 +1,10 @@
 package an.maguste.android.navier.movieslist
 
+import an.maguste.android.navier.App
 import an.maguste.android.navier.api.MovieApi
 import an.maguste.android.navier.api.dtotodomain.convertMovieDtoToDomain
 import an.maguste.android.navier.data.Movie
+import an.maguste.android.navier.notifiactions.MovieNotifications
 import an.maguste.android.navier.storage.repository.MoviesRepository
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -23,6 +25,8 @@ class MoviesListViewModel(
     private val _movies = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>> get() = _movies
 
+
+
     /** get movies list from DB first. After that try to reach API via internet */
     fun loadMovies() {
         viewModelScope.launch {
@@ -30,7 +34,11 @@ class MoviesListViewModel(
             loadMoviesFromDb()
             loadMoviesFromApi()
         }
+
+
     }
+
+
 
     private suspend fun loadMoviesFromApi() {
         try {
@@ -52,6 +60,7 @@ class MoviesListViewModel(
             // don't rewrite with empty data
             if (!movies.isNullOrEmpty()) {
                 repository.rewriteMoviesListIntoDB(movies)
+                sayNotification(movies[1])
             }
 
         } catch (e: Exception) {
@@ -65,6 +74,12 @@ class MoviesListViewModel(
                 "Error grab movies data from API: ${e.message}"
             )
         }
+    }
+
+    private fun sayNotification(movie: Movie) {
+        val notifications = MovieNotifications(App.context())
+        notifications.initialize()
+        notifications.showNotification(movie)
     }
 
     private suspend fun loadMoviesFromDb() {

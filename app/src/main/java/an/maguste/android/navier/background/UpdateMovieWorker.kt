@@ -35,6 +35,8 @@ class UpdateMovieWorker(
                     repository.rewriteMoviesListIntoDB(movies)
                 }
 
+
+
                 Result.success()
             } catch (e: Exception) {
                 Result.failure()
