@@ -26,7 +26,6 @@ class MoviesListViewModel(
     val movies: LiveData<List<Movie>> get() = _movies
 
 
-
     /** get movies list from DB first. After that try to reach API via internet */
     fun loadMovies() {
         viewModelScope.launch {

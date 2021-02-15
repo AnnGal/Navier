@@ -1,5 +1,6 @@
 package an.maguste.android.navier.notifiactions
 
+import an.maguste.android.navier.MainActivity
 import an.maguste.android.navier.R
 import an.maguste.android.navier.data.Movie
 
@@ -31,7 +32,6 @@ class MovieNotifications(private val context: Context) : Notifications  {
         NotificationManagerCompat.from(context)
 
     override fun initialize() {
-
         if (notificationManagerCompat.getNotificationChannel(CHANNEL_NEW_MESSAGES) == null) {
             notificationManagerCompat.createNotificationChannel(
                 NotificationChannelCompat.Builder(CHANNEL_NEW_MESSAGES,
@@ -42,18 +42,20 @@ class MovieNotifications(private val context: Context) : Notifications  {
                     .build()
             )
         }
-
-
     }
+/*
+    Plan:
+    Step 1. Support deep links to open a movie screen by movie ID.
+    Step 2. <compare and find new movie with highest rating>
+    Step 3. <fire a notification with deep link>
+    Step 4*. Add a button to the movie screen to schedule a watch.
+    Step 5*. Ask the user for Calendar access permission and declare related permission in manifest.
+    Step 6*. Ask the user for preferred date & time (via dialogs, for example) and schedule a watch in the primary calendar on the device.
+*/
 
     @WorkerThread
     override fun showNotification(movie: Movie) {
-        //val icon = IconCompat.createWithContentUri(chat.contact.iconUri)
-        //val contentUri = "https://android.example.com/chat/${chat.contact.id}".toUri()
-     /*   val person = Person.Builder()
-            .setName(chat.contact.name)
-            .setIcon(icon)
-            .build()*/
+        val contentUri = "an.maguste.android.navier/${movie.id}".toUri()
 
         val builder = NotificationCompat.Builder(context, CHANNEL_NEW_MESSAGES)
             .setContentTitle(/*chat.contact.name*/movie.title)
@@ -61,16 +63,16 @@ class MovieNotifications(private val context: Context) : Notifications  {
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setOnlyAlertOnce(true)
-/*            .setContentIntent(
+            .setContentIntent(
                 PendingIntent.getActivity(
                     context,
                     REQUEST_CONTENT,
-                    Intent(context, MoviesDetailsFr::class.java)
+                    Intent(context, MainActivity::class.java)
                         .setAction(Intent.ACTION_VIEW)
                         .setData(contentUri),
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
-            )*/
+            )
             // Direct Reply
            /* .addReplyAction(context,contentUri)
             .setStyle(
