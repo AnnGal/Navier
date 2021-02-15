@@ -33,11 +33,7 @@ class MoviesListViewModel(
             loadMoviesFromDb()
             loadMoviesFromApi()
         }
-
-
     }
-
-
 
     private suspend fun loadMoviesFromApi() {
         try {
@@ -59,7 +55,6 @@ class MoviesListViewModel(
             // don't rewrite with empty data
             if (!movies.isNullOrEmpty()) {
                 repository.rewriteMoviesListIntoDB(movies)
-                sayNotification(movies[1])
             }
 
         } catch (e: Exception) {
@@ -73,12 +68,6 @@ class MoviesListViewModel(
                 "Error grab movies data from API: ${e.message}"
             )
         }
-    }
-
-    private fun sayNotification(movie: Movie) {
-        val notifications = MovieNotifications(App.context())
-        notifications.initialize()
-        notifications.showNotification(movie)
     }
 
     private suspend fun loadMoviesFromDb() {

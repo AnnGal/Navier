@@ -20,7 +20,7 @@ class UpdateMovieWorkerRequest {
 
     companion object {
         const val WORKER_MOVIE_UPDATE_NAME = "MovieUpload"
-        private const val WORKER_DELAY_TIME: Long = 10L  // seconds
+        private const val WORKER_DELAY_TIME: Long = 5L  // seconds
         private const val WORKER_REPEAT_TIME: Long = 8L  // hours
     }
 }

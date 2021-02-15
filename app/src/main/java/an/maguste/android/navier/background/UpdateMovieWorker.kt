@@ -1,8 +1,11 @@
 package an.maguste.android.navier.background
 
+import an.maguste.android.navier.App
 import an.maguste.android.navier.api.MovieApi
 import an.maguste.android.navier.api.RetrofitHolder
 import an.maguste.android.navier.api.dtotodomain.convertMovieDtoToDomain
+import an.maguste.android.navier.data.Movie
+import an.maguste.android.navier.notifiactions.MovieNotifications
 import an.maguste.android.navier.storage.repository.RepositoryHolder
 import android.content.Context
 import androidx.work.CoroutineWorker
@@ -12,7 +15,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.create
 
 class UpdateMovieWorker(
-    context: Context,
+    private val context: Context,
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
 
@@ -30,9 +33,18 @@ class UpdateMovieWorker(
                 // get movie domain data
                 val movies = convertMovieDtoToDomain(moviesDto.results, genres.genres)
 
+                // get old movies from DB
+                val oldMovies = repository.getAllMovies()
+
                 // don't rewrite with empty data
                 if (!movies.isNullOrEmpty()) {
+                    // write new movies into DB
                     repository.rewriteMoviesListIntoDB(movies)
+                }
+
+                // if we have any movies - find new best movie and show notification
+                if (!movies.isNullOrEmpty() || !oldMovies.isNullOrEmpty()){
+                    checkNewMoviesForNotification(oldMovies, movies)
                 }
 
                 Result.success()
@@ -41,5 +53,20 @@ class UpdateMovieWorker(
 
             }
         }
+    }
+
+    private fun checkNewMoviesForNotification(oldMovies: List<Movie>, movies: List<Movie>?) {
+        // find new best movie or just best movie
+        val movie = movies?.subtract(oldMovies)?.maxByOrNull { it.ratings} ?: oldMovies.maxByOrNull { it.ratings}
+
+        if (movie != null){
+            sayNotification(movie)
+        }
+    }
+
+    private fun sayNotification(movie: Movie) {
+        val notifications = MovieNotifications(context)
+        notifications.initialize()
+        notifications.showNotification(movie)
     }
 }

@@ -41,7 +41,7 @@ class MainActivityViewModel(private val repository: MoviesRepository) : ViewMode
     }
 
     /** set to null after navigation to avoid false jumps*/
-    fun howMovieFromNotificationComplete() {
+    fun showMovieFromNotificationComplete() {
         _navigateToSelectedMovie.value = null
     }
 }
