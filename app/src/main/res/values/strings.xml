@@ -32,4 +32,9 @@
     <string name="desc_img_no_data">Image showing data not available</string>
     <string name="message_lost_data">No data available. Please try again later</string>
 
+    <string name="channel_new_movies">New messages</string>
+    <string name="channel_new_movies_description">New movies loaded from background</string>
+    <string name="notification_movie_recommendation_title">New movie you might like!</string>
+    <string name="notification_movie_recommendation_desc">\"%1$s\" with %2$s rating</string>
+
 </resources>

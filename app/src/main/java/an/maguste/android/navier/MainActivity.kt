@@ -2,6 +2,7 @@ package an.maguste.android.navier
 
 import an.maguste.android.navier.databinding.ActivityMainBinding
 import an.maguste.android.navier.movieslist.FragmentMoviesListDirections
+import an.maguste.android.navier.notifiactions.MovieNotifications
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,8 +21,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
-
-        viewModel.startBackgroundMovieCheck()
 
         if (savedInstanceState == null) {
             intent?.let(::handleIntent)
@@ -43,14 +42,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleIntent(intent: Intent) {
         when (intent.action) {
-            // Invoked when a dynamic shortcut is clicked.
             Intent.ACTION_VIEW -> {
                 val id = intent.data?.lastPathSegment?.toLongOrNull()
                 if (id != null) {
                     viewModel.showMovieFromNotification(id.toLong())
                     viewModel.showMovieFromNotificationComplete()
+
+                    // bad decision?
+                    val notifications = MovieNotifications(App.context())
+                    notifications.initialize()
+                    notifications.dismissNotification(id)
                 }
             }
+            // first start
+            else -> viewModel.startBackgroundMovieCheck()
         }
     }
 
