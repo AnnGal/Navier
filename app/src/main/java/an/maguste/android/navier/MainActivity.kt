@@ -6,6 +6,7 @@ import an.maguste.android.navier.notifiactions.MovieNotifications
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.navigation.findNavController
 
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                     viewModel.showMovieFromNotification(id.toLong())
                     viewModel.showMovieFromNotificationComplete()
 
+                    // dismissNotification
                     // bad decision?
                     val notifications = MovieNotifications(App.context())
                     notifications.initialize()

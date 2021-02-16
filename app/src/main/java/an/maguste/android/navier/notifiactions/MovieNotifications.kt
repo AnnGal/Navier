@@ -43,7 +43,7 @@ class MovieNotifications(private val context: Context) : Notifications {
 
         val builder = NotificationCompat.Builder(context, CHANNEL_NEW_MOVIES)
             .setContentTitle(context.getString(R.string.notification_movie_recommendation_title))
-            .setContentText(context.getString(R.string.notification_movie_recommendation_desc, movie.title, movie.ratings.toString())) //"\"${movie.title}\" with ${movie.ratings} rating")
+            .setContentText(context.getString(R.string.notification_movie_recommendation_desc, movie.title, movie.ratings.toString()))
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setOnlyAlertOnce(true)

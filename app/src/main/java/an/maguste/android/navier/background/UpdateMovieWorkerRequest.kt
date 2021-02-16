@@ -13,7 +13,11 @@ class UpdateMovieWorkerRequest {
         .build()
 
     val periodicRequestCoroutine =
-        PeriodicWorkRequest.Builder(UpdateMovieWorker::class.java, WORKER_REPEAT_TIME, TimeUnit.HOURS)
+        PeriodicWorkRequest.Builder(
+            UpdateMovieWorker::class.java,
+            WORKER_REPEAT_TIME,
+            TimeUnit.HOURS
+        )
             .setConstraints(constraints)
             .setInitialDelay(WORKER_DELAY_TIME, TimeUnit.SECONDS)
             .build()

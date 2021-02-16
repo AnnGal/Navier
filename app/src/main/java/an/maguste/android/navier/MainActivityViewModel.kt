@@ -2,14 +2,11 @@ package an.maguste.android.navier
 
 import an.maguste.android.navier.background.UpdateMovieWorkerRequest
 import an.maguste.android.navier.data.Movie
-import an.maguste.android.navier.movieslist.FragmentMoviesListDirections
-import an.maguste.android.navier.movieslist.State
 import an.maguste.android.navier.storage.repository.MoviesRepository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.findNavController
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.WorkManager
 import kotlinx.coroutines.launch
@@ -18,7 +15,7 @@ class MainActivityViewModel(private val repository: MoviesRepository) : ViewMode
 
     private val backgroundRequests = UpdateMovieWorkerRequest()
 
-    // it really recommended decision for MVVM navigation from google lessons
+    // recommended decision for MVVM navigation from google lessons
     private val _navigateToSelectedMovie = MutableLiveData<Movie>()
     val navigateToSelectedMovie: LiveData<Movie> get() = _navigateToSelectedMovie
 

@@ -37,4 +37,9 @@
     <string name="notification_movie_recommendation_title">New movie you might like!</string>
     <string name="notification_movie_recommendation_desc">\"%1$s\" with %2$s rating</string>
 
+    <string name="permission_ask_write_calendar">To continue schedule the movie - please give calendar access</string>
+    <string name="permission_grant">Grand</string>
+    <string name="permission_denied">Deny</string>
+    <string name="watch_later">Watch later</string>
+
 </resources>

@@ -1,6 +1,5 @@
 package an.maguste.android.navier.background
 
-import an.maguste.android.navier.App
 import an.maguste.android.navier.api.MovieApi
 import an.maguste.android.navier.api.RetrofitHolder
 import an.maguste.android.navier.api.dtotodomain.convertMovieDtoToDomain
@@ -43,7 +42,7 @@ class UpdateMovieWorker(
                 }
 
                 // if we have any movies - find new best movie and show notification
-                if (!movies.isNullOrEmpty() || !oldMovies.isNullOrEmpty()){
+                if (!movies.isNullOrEmpty() || !oldMovies.isNullOrEmpty()) {
                     checkNewMoviesForNotification(oldMovies, movies)
                 }
 
@@ -57,9 +56,10 @@ class UpdateMovieWorker(
 
     private fun checkNewMoviesForNotification(oldMovies: List<Movie>, movies: List<Movie>?) {
         // find new best movie or just best movie
-        val movie = movies?.subtract(oldMovies)?.maxByOrNull { it.ratings} ?: oldMovies.maxByOrNull { it.ratings}
+        val movie = movies?.subtract(oldMovies)?.maxByOrNull { it.ratings }
+            ?: oldMovies.maxByOrNull { it.ratings }
 
-        if (movie != null){
+        if (movie != null) {
             sayNotification(movie)
         }
     }

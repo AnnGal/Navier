@@ -9,17 +9,11 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.provider.CalendarContract
-import android.provider.CalendarContract.Events
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresPermission
@@ -46,7 +40,6 @@ class FragmentMoviesDetails : Fragment() {
 
     // permission
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-    private var isRationaleShown = false
 
     // calendar
     private var dateAndTime = Calendar.getInstance()
@@ -101,7 +94,7 @@ class FragmentMoviesDetails : Fragment() {
 
         // observe write into calendar intent
         viewModel.calendarIntent.observe(viewLifecycleOwner, { calendarIntet ->
-            if (calendarIntet != null){
+            if (calendarIntet != null) {
                 startActivity(calendarIntet)
                 viewModel.scheduleMoveDone()
             }
@@ -172,9 +165,7 @@ class FragmentMoviesDetails : Fragment() {
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                onLocationPermissionGranted()
-            } else {
-                onLocationPermissionNotGranted()
+                onWriteCalendarPermissionGranted()
             }
         }
     }
@@ -192,120 +183,71 @@ class FragmentMoviesDetails : Fragment() {
             if (ContextCompat.checkSelfPermission(it, Manifest.permission.WRITE_CALENDAR)
                 == PackageManager.PERMISSION_GRANTED
             ) {
-                onLocationPermissionGranted()
-                return
-            }
-            showLocationPermissionExplanationDialog()
-            //if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_CALENDAR)) {
-            //    showLocationPermissionExplanationDialog()
-            //}
-            /*when {
-
-
-
-                // ask permission politely
-
-                ->
-                //
-                isRationaleShown -> showLocationPermissionDeniedDialog()
-                else -> requestLocationPermission()
-            }*/
+                onWriteCalendarPermissionGranted()
+            } else showLocationPermissionExplanationDialog()
         }
     }
 
     private fun launchDatePicker() {
-        val dpd = DatePickerDialog(
+        DatePickerDialog(
             requireContext(),
             { _, year, monthOfYear, dayOfMonth ->
+                // fix date
                 dateAndTime.set(year, monthOfYear, dayOfMonth)
-
+                // ask time
                 launchTimePicker()
             },
             dateAndTime.get(Calendar.YEAR),
             dateAndTime.get(Calendar.MONTH),
             dateAndTime.get(Calendar.DAY_OF_MONTH)
-        )
-        dpd.show()
+        ).show()
     }
 
     private fun launchTimePicker() {
-        val tpd = TimePickerDialog(requireContext(), { _, hour, minute ->
-            dateAndTime.set(
-                dateAndTime.get(Calendar.YEAR),
-                dateAndTime.get(Calendar.MONTH),
-                dateAndTime.get(Calendar.DAY_OF_MONTH),
-                hour,
-                minute
-            )
-            writeIntoCalendar()
-        }, dateAndTime.get(Calendar.HOUR), dateAndTime.get(Calendar.MINUTE), true)
-        tpd.show()
+        TimePickerDialog(
+            requireContext(), { _, hour, minute ->
+                // fix time
+                dateAndTime.set(
+                    dateAndTime.get(Calendar.YEAR),
+                    dateAndTime.get(Calendar.MONTH),
+                    dateAndTime.get(Calendar.DAY_OF_MONTH),
+                    hour,
+                    minute
+                )
+                // start calendar intent
+                viewModel.scheduleMoveIntoCalendar(binding.title.text.toString(), dateAndTime)
+            },
+            dateAndTime.get(Calendar.HOUR),
+            dateAndTime.get(Calendar.MINUTE),
+            true
+        ).show()
     }
-
-    private fun writeIntoCalendar() {
-        context?.let {
-            Toast.makeText(
-                context, "writeIntoCalendar ${dateAndTime.get(Calendar.DAY_OF_MONTH)} ${
-                    dateAndTime.get(Calendar.HOUR)
-                }", Toast.LENGTH_SHORT
-            ).show()
-            viewModel.scheduleMoveIntoCalendar(binding.title.text.toString(), dateAndTime)
-        }
-    }
-
 
     @RequiresPermission(Manifest.permission.WRITE_CALENDAR)
-    private fun onLocationPermissionGranted() {
+    private fun onWriteCalendarPermissionGranted() {
         // grab date and write movie
         launchDatePicker()
-    }
-
-    private fun onLocationPermissionNotGranted() {
-        context?.let {
-            Toast.makeText(context, "not_granted_text", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun requestLocationPermission() {
-        context?.let {
-            requestPermissionLauncher.launch(Manifest.permission.WRITE_CALENDAR)
-        }
-    }
-
-    private fun showLocationPermissionDeniedDialog() {
-        context?.let {
-            AlertDialog.Builder(it)
-                .setMessage("R.string.ws04_permission_dialog_denied_text")
-                .setPositiveButton("Yes"/*R.string.ws04_dialog_positive_button*/) { dialog, _ ->
-                    startActivity(
-                        Intent(
-                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                            Uri.parse("package:" + it.packageName)
-                        )
-                    )
-                    dialog.dismiss()
-                }
-                .setNegativeButton("No"/*R.string.ws04_dialog_negative_button*/) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
-        }
     }
 
     private fun showLocationPermissionExplanationDialog() {
         context?.let {
             AlertDialog.Builder(it)
-                .setMessage("R.string.ws04_permission_dialog_explanation_text")
-                .setPositiveButton("Yes"/*R.string.ws04_dialog_positive_button*/) { dialog, _ ->
-
-                    isRationaleShown = true
-                    requestLocationPermission()
+                .setMessage(R.string.permission_ask_write_calendar)
+                .setPositiveButton(R.string.permission_grant) { dialog, _ ->
+                    requestWriteCalendarPermission()
                     dialog.dismiss()
                 }
-                .setNegativeButton("No"/*"R.string.ws04_dialog_negative_button"*/) { dialog, _ ->
+                .setNegativeButton(R.string.permission_denied) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .show()
         }
     }
+
+    private fun requestWriteCalendarPermission() {
+        context?.let {
+            requestPermissionLauncher.launch(Manifest.permission.WRITE_CALENDAR)
+        }
+    }
+
 }

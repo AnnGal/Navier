@@ -74,14 +74,16 @@ class MoviesDetailsViewModel(
     fun scheduleMoveIntoCalendar(movieName: String, dateAndTime: Calendar) {
         val intent = Intent(Intent.ACTION_INSERT)
 
-        intent.type = "vnd.android.cursor.item/event"
-        intent.putExtra(CalendarContract.Events.TITLE, movieName)
-        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, dateAndTime.timeInMillis)
+        with(intent) {
+            type = "vnd.android.cursor.item/event"
+            putExtra(CalendarContract.Events.TITLE, movieName)
+            putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, dateAndTime.timeInMillis)
 
-        intent.putExtra(CalendarContract.Events.ALL_DAY, true)
-        intent.putExtra(CalendarContract.Events.STATUS, 1)
-        intent.putExtra(CalendarContract.Events.VISIBLE, 1)
-        intent.putExtra(CalendarContract.Events.HAS_ALARM, 1)
+            putExtra(CalendarContract.Events.ALL_DAY, true)
+            putExtra(CalendarContract.Events.STATUS, 1)
+            putExtra(CalendarContract.Events.VISIBLE, 1)
+            putExtra(CalendarContract.Events.HAS_ALARM, 1)
+        }
 
         _calendarIntent.value = intent
     }

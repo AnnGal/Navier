@@ -1,10 +1,8 @@
 package an.maguste.android.navier.movieslist
 
-import an.maguste.android.navier.App
 import an.maguste.android.navier.api.MovieApi
 import an.maguste.android.navier.api.dtotodomain.convertMovieDtoToDomain
 import an.maguste.android.navier.data.Movie
-import an.maguste.android.navier.notifiactions.MovieNotifications
 import an.maguste.android.navier.storage.repository.MoviesRepository
 import android.util.Log
 import androidx.lifecycle.LiveData
