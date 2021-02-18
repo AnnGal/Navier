@@ -10,6 +10,7 @@ interface MoviesRepository {
     suspend fun getAllMovies(): List<Movie>
     suspend fun writeMovieIntoDB(movie: Movie)
     suspend fun rewriteMoviesListIntoDB(movies: List<Movie>)
+    suspend fun getMovieById(id: Long): Movie?
 }
 
 class MoviesRepositoryImpl : MoviesRepository {
@@ -32,4 +33,13 @@ class MoviesRepositoryImpl : MoviesRepository {
         moviesDB.moviesDao().getAll().map { MovieMapper.toMovieDomain(it) }
     }
 
+
+    /** get concrete movie */
+    override suspend fun getMovieById(id: Long): Movie? = withContext(Dispatchers.IO) {
+        val movie = moviesDB.moviesDao().getMovie(id)
+
+        if (movie != null){
+            MovieMapper.toMovieDomain(movie)
+        } else null
+    }
 }

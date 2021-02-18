@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="back_button_text">#80FFFFFF</color>
+    <color name="toolbar_icons_color">#80FFFFFF</color>
     <color name="text_regular">#BFFFFFFF</color>
     <color name="background">#191926</color>
     <color name="text_header">#ECECEC</color>
@@ -17,4 +17,5 @@
     <color name="view_card_border">#80000000</color>
     <color name="view_card_background_end">#8C222232</color>
     <color name="view_card_background_start">#FD404056</color>
+    <color name="transparent">#00000000</color>
 </resources>

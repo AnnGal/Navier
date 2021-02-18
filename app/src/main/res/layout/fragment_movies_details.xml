@@ -34,12 +34,13 @@
         <Button
             android:id="@+id/toolbar"
             style="@style/ToolbarButtonTextStyle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
             android:background="?android:attr/selectableItemBackground"
             android:text="@string/back_label"
             app:drawableLeftCompat="@drawable/ic_baseline_arrow_back"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,7 +97,7 @@
             android:theme="@style/RatingBarStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/genres"
-            tools:rating="4"/>
+            tools:rating="4" />
 
         <TextView
             android:id="@+id/reviews"
@@ -104,7 +105,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/view_medium_gap"
-            android:layout_marginBottom="@dimen/view_medium_gap"
             android:paddingStart="12dp"
             app:layout_constraintStart_toEndOf="@+id/ratingBar"
             app:layout_constraintTop_toBottomOf="@+id/genres"
@@ -117,12 +117,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/layout_gap"
-            android:layout_marginTop="@dimen/view_big_gap"
             android:text="@string/storyline"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviews"
-            tools:visibility="visible"/>
+            app:layout_constraintTop_toBottomOf="@+id/scheduleMovie"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/storylineText"
@@ -150,7 +149,7 @@
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/storylineText"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -166,6 +165,19 @@
             app:layout_constraintTop_toBottomOf="@+id/cast"
             tools:itemCount="4"
             tools:listitem="@layout/view_holder_actor" />
+
+        <Button
+            android:id="@+id/scheduleMovie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/transparent"
+            android:text="@string/watch_later"
+            android:textAllCaps="false"
+            app:drawableLeftCompat="@drawable/ic_schedule"
+            app:layout_constraintBottom_toBottomOf="@+id/reviews"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/reviews"
+            app:layout_constraintTop_toTopOf="@+id/reviews" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
